@@ -84,6 +84,7 @@ namespace FStudio.MatchEngine.Balls {
         private AnimationQuery holdBlocker;
 
         [SerializeField] private bool isOnGoal;
+        private Transform ballModel;
         #region events
         public Action<PlayerBase> OnBallHold;
         public Action<GameTeam> OnBallHit;
@@ -121,6 +122,8 @@ namespace FStudio.MatchEngine.Balls {
 
         protected override void OnEnable () {
             if (Application.isPlaying) {
+                ballModel = GetComponent<Transform>();
+                ballModel.localScale *= 3;
                 EventManager.Subscribe<GoalEvent>(OnGoal);
             }
         }

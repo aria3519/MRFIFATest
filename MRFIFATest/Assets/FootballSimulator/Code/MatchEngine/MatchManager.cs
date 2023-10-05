@@ -128,7 +128,7 @@ namespace FStudio.MatchEngine {
         public MatchStatus MatchFlags = default;
 
         private GeneralUserInput generalInput;
-
+        public int currTeamNum1 { private set; get; } = 5; //playerNum
         /// <summary>
         /// Which team started, team1 or team2?
         /// </summary>
@@ -269,17 +269,19 @@ namespace FStudio.MatchEngine {
         public static async Task CreateMatch(// 플레이어 숫자 조정 가능??
                 MatchDetails matchDetails
             ) {
-
+            int currTeamNum = 5; // playerNum
             CurrentMatchDetails = matchDetails;
 
             var homeFormation = FormationRules.GetTeamFormation(matchDetails.homeTeam.Formation);
 
-            var homeTeamMatchPlayers = new MatchPlayer[11];
-            for (int i = 0; i < 11; i++) {
+            var homeTeamMatchPlayers = new MatchPlayer[currTeamNum];
+            for (int i = 0; i < currTeamNum; i++) {
                 homeTeamMatchPlayers[i] = new MatchPlayer(
                     i + 1,
                     matchDetails.homeTeam.Players[i],
-                    11 > i ? homeFormation.Positions[i] : matchDetails.homeTeam.Players[i].Position);
+                    currTeamNum > i ? homeFormation.Positions[i] : matchDetails.homeTeam.Players[i].Position);
+               
+
             }
 
             var homeTactics = await PlayableFormations.
@@ -300,13 +302,13 @@ namespace FStudio.MatchEngine {
 
             var awayFormation = FormationRules.GetTeamFormation(matchDetails.awayTeam.Formation);
 
-            var awayTeamMatchPlayers = new MatchPlayer[11];
+            var awayTeamMatchPlayers = new MatchPlayer[currTeamNum];
             // 원래 i < 11
-            for (int i = 0; i < 11; i++) {
+            for (int i = 0; i < currTeamNum; i++) {
                 awayTeamMatchPlayers[i] = new MatchPlayer(
                     i + 1,
                     matchDetails.awayTeam.Players[i],
-                    11 > i ? awayFormation.Positions[i] : matchDetails.awayTeam.Players[i].Position);
+                    currTeamNum > i ? awayFormation.Positions[i] : matchDetails.awayTeam.Players[i].Position);
             }
 
             var awayTactics = await PlayableFormations.Current.Formations.FindAsync(matchDetails.awayTeam.Formation);

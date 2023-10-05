@@ -25,7 +25,7 @@ using FStudio.MatchEngine.AIManager;
 namespace FStudio.MatchEngine {
     public class GameTeam : MonoBehaviour {
         private const float NAME_TIMER_DELAYER = 1f;
-
+        private int currPlayerNum = 5;
         public PlayerBase[] GamePlayers;
 
         private IManager tacticManager;
@@ -230,7 +230,7 @@ namespace FStudio.MatchEngine {
             mainKit = InGameKitMaterial.Current.GetMaterial(targetKit.KitMaterial, targetKit.Color1, targetKit.Color2);
             gkKit = InGameKitMaterial.Current.GetMaterial(targetKit.GKKitMaterial, targetKit.GKColor1, targetKit.GKColor2);
 
-            var length = Mathf.Min(team.Players.Length, 11);
+            var length = Mathf.Min(team.Players.Length, currPlayerNum);
 
             GamePlayers = new PlayerBase[length];
 
@@ -313,7 +313,7 @@ namespace FStudio.MatchEngine {
                 UpdateMarkings(opponents);
             }
 
-            for (int i=0; i < 11; i++) {
+            for (int i=0; i < currPlayerNum; i++) {
                 if (GamePlayers[i] != null) {
 
                     var isInputControlled = IsPlayerInputControlled(GamePlayers[i]);
