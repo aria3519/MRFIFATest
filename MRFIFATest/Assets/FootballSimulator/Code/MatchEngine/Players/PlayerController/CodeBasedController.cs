@@ -6,12 +6,14 @@ using FStudio.MatchEngine.Players.Behaviours;
 using FStudio.MatchEngine.Utilities;
 using System;
 using FStudio.MatchEngine.Graphics.EventRenderer;
-
+using Appnori.Util;
+using System.Threading.Tasks;
 namespace FStudio.MatchEngine.Players.PlayerController {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(CapsuleCollider))]
     public partial class CodeBasedController : MonoBehaviour, IPlayerController
     {
+        public Notifier<Vector3> CheckPlayer;
         public GameObject UnityObject => gameObject;
 
         public CapsuleCollider UnityCollider => collider;
@@ -69,13 +71,25 @@ namespace FStudio.MatchEngine.Players.PlayerController {
         private Vector3 targetAnimatorDirection;
 
         private Vector3 targetPosition;
+        private Transform playerModel;
 
         private void Start () {
+            
+            
+            CheckPlayer.Value = this.transform.position;
+            CheckPlayer.OnDataChanged += OnChangedPostion;
+            playerModel = GetComponent<Transform>();
+            playerModel.localScale *= 3;
             playerAnimator.SetFloat(PlayerAnimatorVariable.Agility, 0.5f + (BasePlayer.MatchPlayer.ActualAgility / 200f));
 
             UI.SetName(BasePlayer.MatchPlayer.Player.Name);
         }
 
+
+        private async void OnEnable()
+        {
+            await TransFormManager.SetPlayer(this, name);
+        }
         private void OnDestroy() {
             if (shadow != null) {
                 shadow.gameObject.SetActive(false);
@@ -243,7 +257,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             MovementType movementType = MovementType.BestHeCanDo) {
 
             this.targetPosition = targetPosition;
-
+            CheckPlayer.Value = targetPosition;
             var isReached = false;
 
             targetPosition.y = 0;
@@ -490,6 +504,11 @@ namespace FStudio.MatchEngine.Players.PlayerController {
         public void BallHitEvent()
         {
             BasePlayer.BallHitEvent();
+        }
+
+        private void OnChangedPostion(Vector3 pos)
+        {
+            TransFormManager.Current.ChangePostion();
         }
     }
 }
