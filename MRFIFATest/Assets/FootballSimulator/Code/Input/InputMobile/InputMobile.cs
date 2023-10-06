@@ -7,14 +7,15 @@ namespace FStudio.Input {
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         internal static void Load() {
-            var inputMobile = Instantiate(Resources.Load<Transform>("InputMobile"));
-            DontDestroyOnLoad(inputMobile);
+            //var inputMobile = Instantiate(Resources.Load<Transform>("InputMobile"));
+            //DontDestroyOnLoad(inputMobile);
         }
 
         [SerializeField] private GameObject cancelButton;
         [SerializeField] private GameObject canvas;
 
         private void Update() {
+            
             var mainCanvasEnabled = false;
             var cancelCanvasEnabled = false;
 
