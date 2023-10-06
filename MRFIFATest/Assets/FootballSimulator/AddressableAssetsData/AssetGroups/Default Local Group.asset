@@ -367,6 +367,14 @@ MonoBehaviour:
     m_Address: Assets/FootballSimulator/Arts/Balls/Materials/Ball2.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 29c2681efc9720f45b901e2abdefa57c
+    m_Address: Assets/AppnoriFIFA/Prefabs/player.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b009628d3a33c8f4e8e6d717aaeaf076
+    m_Address: Assets/AppnoriFIFA/Prefabs/TransformMap.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 47241fa8069554f4a9021889dfcb6227, type: 2}
   m_SchemaSet:

@@ -237,7 +237,7 @@ namespace FStudio.MatchEngine.Players {
                 PlayerControllerPrefab.Current.PlayerController.UnityObject,
                 Vector3.zero, 
                 Quaternion.identity).GetComponent<IPlayerController>();
-
+           
             PlayerController.SetPlayer(matchPlayer.Number, this, kitMaterial);
 
             /// register for collisions.

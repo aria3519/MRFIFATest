@@ -13,7 +13,10 @@ namespace FStudio.MatchEngine.Players.PlayerController {
     [RequireComponent(typeof(CapsuleCollider))]
     public partial class CodeBasedController : MonoBehaviour, IPlayerController
     {
-        public Notifier<Vector3> CheckPlayer;
+        public Notifier<Vector3> CheckPlayerPos;
+        public Notifier<Quaternion> CheckPlayerQ;
+
+        public int myNumber { set; get; }
         public GameObject UnityObject => gameObject;
 
         public CapsuleCollider UnityCollider => collider;
@@ -76,8 +79,10 @@ namespace FStudio.MatchEngine.Players.PlayerController {
         private void Start () {
             
             
-            CheckPlayer.Value = this.transform.position;
-            CheckPlayer.OnDataChanged += OnChangedPostion;
+            CheckPlayerPos.Value = this.transform.position;
+            CheckPlayerPos.OnDataChanged += OnChangedPostion;
+            CheckPlayerQ.Value = this.transform.rotation;
+            CheckPlayerQ.OnDataChanged += OnChangedRotation;
             playerModel = GetComponent<Transform>();
             playerModel.localScale *= 3;
             playerAnimator.SetFloat(PlayerAnimatorVariable.Agility, 0.5f + (BasePlayer.MatchPlayer.ActualAgility / 200f));
@@ -86,9 +91,13 @@ namespace FStudio.MatchEngine.Players.PlayerController {
         }
 
 
-        private async void OnEnable()
+        /*private async void OnEnable()
         {
-            await TransFormManager.SetPlayer(this, name);
+            await TransFormManager.Current.SetPlayer(this, name);
+        }*/
+        private void OnEnable()
+        {
+            TransFormManager.Current.SetPlayer1(this);
         }
         private void OnDestroy() {
             if (shadow != null) {
@@ -257,12 +266,13 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             MovementType movementType = MovementType.BestHeCanDo) {
 
             this.targetPosition = targetPosition;
-            CheckPlayer.Value = targetPosition;
+           
             var isReached = false;
 
             targetPosition.y = 0;
 
             float distance = Vector3.Distance(Position, targetPosition);
+            
             var newDirection = (targetPosition - Position).normalized;
             newDirection.y = 0;
 
@@ -284,7 +294,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
                 }
 
                 var targetMovement = 1 - (directionAgile.angleDifferency / 180);
-
+               
                 switch (movementType) {
                     case MovementType.Relax:
                         targetMovement *= 0.25f;
@@ -490,6 +500,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
 
         private void LateUpdate () {
             shadow.position = Position;
+            CheckPlayerPos.Value = this.transform.position;
         }
 
         public bool HitBall (
@@ -506,9 +517,17 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             BasePlayer.BallHitEvent();
         }
 
-        private void OnChangedPostion(Vector3 pos)
+        private  void OnChangedPostion(Vector3 pos)
         {
-            TransFormManager.Current.ChangePostion();
+             TransFormManager.Current.TransFormPlayerPos(pos,myNumber);
         }
+        private  void OnChangedRotation(Quaternion qu)
+        {
+             TransFormManager.Current.TransFormPlayerRota();
+        }
+
+
+        
+
     }
 }
