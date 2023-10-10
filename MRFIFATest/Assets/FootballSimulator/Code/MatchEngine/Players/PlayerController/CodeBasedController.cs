@@ -88,6 +88,9 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             playerAnimator.SetFloat(PlayerAnimatorVariable.Agility, 0.5f + (BasePlayer.MatchPlayer.ActualAgility / 200f));
 
             UI.SetName(BasePlayer.MatchPlayer.Player.Name);
+            
+
+
         }
 
 
@@ -501,6 +504,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
         private void LateUpdate () {
             shadow.position = Position;
             CheckPlayerPos.Value = this.transform.position;
+            CheckPlayerQ.Value = this.transform.rotation;
         }
 
         public bool HitBall (
@@ -523,7 +527,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
         }
         private  void OnChangedRotation(Quaternion qu)
         {
-             TransFormManager.Current.TransFormPlayerRota();
+             TransFormManager.Current.TransFormPlayerRota(qu,myNumber);
         }
 
 

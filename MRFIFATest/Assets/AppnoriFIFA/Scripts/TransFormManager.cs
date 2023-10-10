@@ -20,10 +20,10 @@ namespace FStudio.MatchEngine
         //private List<CodeBasedController> Players_Postion = new List<CodeBasedController>();
         private List<TransFormPlayerBase> transPlayers = new List<TransFormPlayerBase>();
 
-
+        private TransFormMap _baseMap = null;
 
         [SerializeField]
-        private int Pos_x = 120;
+        private int Pos_x = 150;
 
         [SerializeField]
         private float _X = 1f;
@@ -31,16 +31,43 @@ namespace FStudio.MatchEngine
         private float _Z = 1f;
 
 
+        public Notifier<float> Check_X;
+        public Notifier<float> Check_Z;
+
 
         private void Awake()
         {
             //Debug.LogError("TransFormManager Awake");
-            Addressables.InstantiateAsync("Assets/AppnoriFIFA/Prefabs/TransformMap.prefab", new Vector3(Pos_x, 0, 0), Quaternion.identity);
-        }
-        
-       
+            Addressables.InstantiateAsync("Assets/AppnoriFIFA/Prefabs/TransFormMap.prefab", new Vector3(Pos_x, 0, 0), Quaternion.identity);
+            
 
-      
+            Check_X.Value = _X;
+            Check_Z.Value = _Z;
+
+            Check_X.OnDataChanged += OnChange_X;
+            Check_Z.OnDataChanged += OnChange_Z;
+        }
+
+
+        private void Update()
+        {
+            if (Check_X.Value != _X) Check_X.Value = _X; 
+            if (Check_Z.Value != _Z) Check_Z.Value = _Z; 
+
+
+
+        }
+
+
+        private void OnChange_X(float x)
+        {
+            _baseMap.ChangeSize(x, Check_Z.Value);
+        }
+        private void OnChange_Z(float z)
+        {
+            _baseMap.ChangeSize(Check_X.Value,z);
+        }
+
         public void TransFormPlayerPos(Vector3 pos, int num)
         {
             Vector3 tempPos = pos;
@@ -51,9 +78,9 @@ namespace FStudio.MatchEngine
 
             transPlayers[num].TransPostion(tempPos);
         }
-        public void TransFormPlayerRota()
+        public void TransFormPlayerRota(Quaternion Q,int num)
         {
-            
+            transPlayers[num].TransRotation(Q);
         }
         
         public  void SetPlayer1(CodeBasedController player)
@@ -66,6 +93,10 @@ namespace FStudio.MatchEngine
             
         }
 
+        public void AddMap(TransFormMap map)
+        {
+            _baseMap = map;
+        }
         public void AddPlayer(TransFormPlayerBase pl)
         {
             transPlayers.Add(pl);

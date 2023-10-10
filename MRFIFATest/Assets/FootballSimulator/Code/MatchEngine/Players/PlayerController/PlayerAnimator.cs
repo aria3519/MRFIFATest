@@ -137,14 +137,14 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             if (!gameObject.activeSelf) {
                 return;
             }
-            animator.SetBool (animatorVariableHashes[animatorVariable.ToString()], value);
+            animator.SetBool (animatorVariableHashes[animatorVariable.ToString()], value);//AnimatorCon
         }
 
         public void SetLayerWeight (int layerIndex, float value) {
             if (!gameObject.activeSelf) {
                 return;
             }
-            animator.SetLayerWeight(layerIndex, value);
+            animator.SetLayerWeight(layerIndex, value);//AnimatorCon
         }
 
         public void SetFloat (PlayerAnimatorVariable animatorVariable, float value) {
