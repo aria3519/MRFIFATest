@@ -2999,6 +2999,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab09eea33dc7ea449a686b87136ae5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mat:
+  - {fileID: 2100000, guid: 4a3d4309145fc6d489e06385461cdc79, type: 2}
+  - {fileID: 2100000, guid: cee3d6a8eced1d244bd35bb5f5917af5, type: 2}
   Pos_x: 150
   _X: 1
   _Z: 1
@@ -3546,6 +3549,18 @@ PrefabInstance:
       propertyPath: dropPointVisual
       value: 
       objectReference: {fileID: 1102900370730917729}
+    - target: {fileID: 4887197897155262252, guid: 3e97df28972ab9a438b3f6ecad7f2286, type: 3}
+      propertyPath: CheckPos.value.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4887197897155262252, guid: 3e97df28972ab9a438b3f6ecad7f2286, type: 3}
+      propertyPath: CheckPos.value.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4887197897155262252, guid: 3e97df28972ab9a438b3f6ecad7f2286, type: 3}
+      propertyPath: CheckPos.value.z
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 4887197897155262252, guid: 3e97df28972ab9a438b3f6ecad7f2286, type: 3}
       propertyPath: crossDebugIndicator
       value: 

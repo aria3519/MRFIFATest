@@ -7,6 +7,7 @@ using FStudio.MatchEngine.Utilities;
 using System;
 using FStudio.MatchEngine.Graphics.EventRenderer;
 using Appnori.Util;
+using System.Collections;
 using System.Threading.Tasks;
 namespace FStudio.MatchEngine.Players.PlayerController {
     [RequireComponent(typeof(Rigidbody))]
@@ -16,7 +17,15 @@ namespace FStudio.MatchEngine.Players.PlayerController {
         public Notifier<Vector3> CheckPlayerPos;
         public Notifier<Quaternion> CheckPlayerQ;
 
-        public int myNumber { set; get; }
+        public Notifier<string> CheckAnim;
+        public Notifier<bool> CheckHoldBall;
+
+        private bool _once = false;
+        public int myNumber { set; get; } = -1;
+        public Material _Mat;
+       
+        
+       
         public GameObject UnityObject => gameObject;
 
         public CapsuleCollider UnityCollider => collider;
@@ -81,16 +90,61 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             
             CheckPlayerPos.Value = this.transform.position;
             CheckPlayerPos.OnDataChanged += OnChangedPostion;
-            CheckPlayerQ.Value = this.transform.rotation;
+            CheckPlayerQ.Value =new Quaternion(0,0,0,0);
             CheckPlayerQ.OnDataChanged += OnChangedRotation;
-            playerModel = GetComponent<Transform>();
-            playerModel.localScale *= 3;
-            playerAnimator.SetFloat(PlayerAnimatorVariable.Agility, 0.5f + (BasePlayer.MatchPlayer.ActualAgility / 200f));
+            //playerModel = GetComponent<Transform>();
+            //playerModel.localScale *= 3;
+            playerAnimator.SetFloat(PlayerAnimatorVariable.Agility, 0.5f + (BasePlayer.MatchPlayer.ActualAgility / 200f));//anim111
 
             UI.SetName(BasePlayer.MatchPlayer.Player.Name);
+            CheckAnim.Value = "SetFloat";
+            CheckAnim.OnDataChanged += OnChangeAniString;
+            CheckHoldBall.Value = false;
+            CheckHoldBall.OnDataChanged += OnChangeHoldBall;
+
+            StartCoroutine(initTrans());
             
 
 
+
+        }
+        public void InitAnim()
+        {
+            if (TransFormManager.Current.transPlayers.Count <=0
+                || myNumber == -1)
+                return;
+            
+            TransFormManager.Current.TransFormPlayerAnimFloat(myNumber,PlayerAnimatorVariable.Horizontal,playerAnimator.GetFloat(PlayerAnimatorVariable.Horizontal));
+            TransFormManager.Current.TransFormPlayerAnimFloat(myNumber,PlayerAnimatorVariable.Vertical, playerAnimator.GetFloat(PlayerAnimatorVariable.Vertical));
+            TransFormManager.Current.TransFormPlayerAnimFloat(myNumber,PlayerAnimatorVariable.MoveSpeed, playerAnimator.GetFloat(PlayerAnimatorVariable.MoveSpeed));
+            TransFormManager.Current.TransFormPlayerAnimFloat(myNumber,PlayerAnimatorVariable.Agility, playerAnimator.GetFloat(PlayerAnimatorVariable.Agility));
+           
+        }
+        
+        
+
+        private IEnumerator initTrans()
+        {
+            while(true)
+            {
+
+
+
+                if (TransFormManager.Current.transPlayers.Count > 0
+                 && myNumber!=-1)
+                {
+                    //TransFormManager.Current.SetPlayerColor(myNumber, _Mat, BasePlayer.MatchPlayer.Player);
+
+                    TransFormManager.Current.SetPlayerColor(myNumber);
+                    yield break;
+
+                }
+               
+                yield return null;
+
+
+
+            }
         }
 
 
@@ -101,6 +155,8 @@ namespace FStudio.MatchEngine.Players.PlayerController {
         private void OnEnable()
         {
             TransFormManager.Current.SetPlayer1(this);
+            
+           
         }
         private void OnDestroy() {
             if (shadow != null) {
@@ -143,6 +199,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             rigidbody.interpolation = RigidbodyInterpolation.Extrapolate;
             rigidbody.drag = 1;
             rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+           
         }
 
         public void SetPosition(Vector3 position) {
@@ -237,7 +294,8 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             if (MatchManager.Current != null) {
                 collider.sharedMaterial = MatchManager.Current.PlayerColliderMaterial;
             }
-
+            _Mat = kitMaterial;
+            
             playerGraphic.SetPlayer(number, kitMaterial, basePlayer.MatchPlayer.Player);
 
             playerGraphic.SetGKGloves(basePlayer.IsGK);
@@ -256,7 +314,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
 
 			Debug.Log ($"Height: {basePlayer.MatchPlayer.Player.height} - Weight {basePlayer.MatchPlayer.Player.weight}");
 
-            playerAnimator.SetFloat(PlayerAnimatorVariable.Agility, basePlayer.MatchPlayer.ActualAgility / 100f);
+            playerAnimator.SetFloat(PlayerAnimatorVariable.Agility, basePlayer.MatchPlayer.ActualAgility / 100f);//anim111
 
             // take a shadow.
             shadow = ShadowRenderer.Current.Get();
@@ -413,7 +471,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
                     (!MatchManager.Current.MatchFlags.HasFlag(MatchStatus.Playing) &&
                     !MatchManager.Current.MatchFlags.HasFlag(MatchStatus.Special));
 
-            playerAnimator.SetFloat(PlayerAnimatorVariable.MoveSpeed, Mathf.Max(MIN_MOVE_SPEED_TO_MOVE, MoveSpeed));
+            playerAnimator.SetFloat(PlayerAnimatorVariable.MoveSpeed, Mathf.Max(MIN_MOVE_SPEED_TO_MOVE, MoveSpeed));//anim111
             #endregion
 
             #region smooth animator direction
@@ -445,7 +503,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
 
 
             playerAnimator.SetBool(PlayerAnimatorVariable.IsHoldingBall, BasePlayer.IsHoldingBall);
-#endregion
+            #endregion
 
             if (shouldStop) {
                 return;
@@ -501,12 +559,31 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             #endregion
         }
 
+        private void Update()
+        {
+            InitAnim();
+            CheckActionValue();
+        }
         private void LateUpdate () {
             shadow.position = Position;
-            CheckPlayerPos.Value = this.transform.position;
-            CheckPlayerQ.Value = this.transform.rotation;
+            if (myNumber != -1)
+            {
+                CheckPlayerPos.Value = this.transform.position;
+                CheckPlayerQ.Value = this.transform.rotation;
+            }
+           
+
         }
 
+        private void  CheckActionValue()
+        {
+            if (CheckAnim.Value != playerAnimator.CheckType)
+                CheckAnim.Value = playerAnimator.CheckType;
+            if (CheckHoldBall.Value != BasePlayer.IsHoldingBall)
+                CheckHoldBall.Value = BasePlayer.IsHoldingBall;
+        }
+     
+   
         public bool HitBall (
             in Vector3 targetVelocity, 
             PlayerAnimatorVariable animatorVariable,
@@ -528,10 +605,47 @@ namespace FStudio.MatchEngine.Players.PlayerController {
         private  void OnChangedRotation(Quaternion qu)
         {
              TransFormManager.Current.TransFormPlayerRota(qu,myNumber);
+
+           
+        }
+        private void OnChangeAniString(string aniStr)
+        {
+            if (myNumber == -1)
+                return;
+
+            switch (aniStr)
+            {
+                case "SetTrigger":
+
+                    TransFormManager.Current.TransFormPlayerAnimTri(myNumber, playerAnimator.CheckAnimVar);
+                    break;
+                case "SetBool":
+
+                    TransFormManager.Current.TransFormPlayerAnimBool(myNumber, playerAnimator.CheckAnimVar, playerAnimator.CheckAnimBool);
+                    break;
+                case "SetLayerWeight":
+
+                    TransFormManager.Current.TransFormPlayerAnimLayer(myNumber, playerAnimator.CheckAnimInt, playerAnimator.CheckAnimfloat);
+                    break;
+                case "SetFloat":
+
+                    TransFormManager.Current.TransFormPlayerAnimFloat(myNumber, playerAnimator.CheckAnimVar, playerAnimator.CheckAnimfloat);
+                    break;
+            }
+        }
+
+        private void OnChangeHoldBall(bool isHold)
+        {
+
+            TransFormManager.Current.TransFormAniHoldBall(myNumber, isHold);
         }
 
 
-        
+
+
+
+
+
 
     }
 }

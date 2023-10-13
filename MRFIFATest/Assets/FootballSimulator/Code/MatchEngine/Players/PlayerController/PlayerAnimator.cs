@@ -9,6 +9,8 @@ using System.Linq;
 
 using FStudio.MatchEngine.Graphics.EventRenderer;
 
+using Appnori.Util;
+
 namespace FStudio.MatchEngine.Players.PlayerController {
     [RequireComponent (typeof (Animator))]
     [RequireComponent (typeof (PlayerGraphic))]
@@ -41,6 +43,12 @@ namespace FStudio.MatchEngine.Players.PlayerController {
         public Vector3 AnimatorDirection { set; private get; }
 
         [SerializeField] private PlayerGraphic playerGraphic;
+        public string CheckType { private set; get; } = "";
+        public PlayerAnimatorVariable CheckAnimVar { private set; get; }
+        public int CheckAnimInt { private set; get; }
+        public bool CheckAnimBool { private set; get; } = false;
+        public float CheckAnimfloat { private set; get; } = -1;
+
 
         private void OnDestroy() {
             if (footLShadow != null) {
@@ -59,13 +67,15 @@ namespace FStudio.MatchEngine.Players.PlayerController {
 
         private void Awake () {
             animatorVariableHashes = AnimatorEnumHasher.GetHashes<PlayerAnimatorVariable>(animator);
-            
+            TransFormManager.Current.SetDic(animatorVariableHashes);
             footLShadow = FootShadowRenderer.Current.Get();
             footRShadow = FootShadowRenderer.Current.Get();
 
             footLMaterial = footLShadow.GetComponentInChildren<Renderer>().material;
             footRMaterial = footRShadow.GetComponentInChildren<Renderer>().material;
+           
         }
+
 
         public void SetAnimatorSpeed (float f) {
             if (!gameObject.activeSelf) {
@@ -124,34 +134,53 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             setBone(HumanBodyBones.RightFoot, footRShadow, footRMaterial);
         }
 
-        public void SetTrigger (PlayerAnimatorVariable animatorVariable) {
-            if (!gameObject.activeSelf) {
+        public void SetTrigger(PlayerAnimatorVariable animatorVariable)
+        {
+            if (!gameObject.activeSelf)
+            {
                 return;
             }
 
             Debug.Log($"[PlayerRenderer] SetTrigger () => {animatorVariable}", this);
-            animator.SetTrigger(animatorVariableHashes[animatorVariable.ToString ()]);
+            animator.SetTrigger(animatorVariableHashes[animatorVariable.ToString()]);//AnimatorCon
+
+            CheckType = "SetTrigger";
+            CheckAnimVar = animatorVariable;
         }
+       
 
         public void SetBool (PlayerAnimatorVariable animatorVariable, bool value) {
             if (!gameObject.activeSelf) {
                 return;
             }
             animator.SetBool (animatorVariableHashes[animatorVariable.ToString()], value);//AnimatorCon
+            CheckType = "SetBool";
+            CheckAnimVar = animatorVariable;
+            CheckAnimBool = value;
+
         }
+        
 
         public void SetLayerWeight (int layerIndex, float value) {
             if (!gameObject.activeSelf) {
                 return;
             }
             animator.SetLayerWeight(layerIndex, value);//AnimatorCon
+            CheckType = "SetLayerWeight";
+            CheckAnimInt = layerIndex;
+            CheckAnimfloat = value;
         }
+        
 
         public void SetFloat (PlayerAnimatorVariable animatorVariable, float value) {
             if (!gameObject.activeSelf) {
                 return;
             }
-            animator.SetFloat (animatorVariableHashes[animatorVariable.ToString()], value);
+            animator.SetFloat (animatorVariableHashes[animatorVariable.ToString()], value);//AnimatorCon
+            CheckType = "SetFloat";
+            CheckAnimVar = animatorVariable;
+            CheckAnimfloat = value;
+
 
             switch (animatorVariable) {
                 case PlayerAnimatorVariable.MoveSpeed:
@@ -160,6 +189,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
                     break;
             }
         }
+        
 
         public float GetFloat(PlayerAnimatorVariable animatorVariable) {
             if (!gameObject.activeSelf) {

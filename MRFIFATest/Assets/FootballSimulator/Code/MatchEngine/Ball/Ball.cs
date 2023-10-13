@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FStudio.MatchEngine.Players.PlayerController;
 using FStudio.MatchEngine.Graphics.EventRenderer;
+using Appnori.Util;
 
 namespace FStudio.MatchEngine.Balls {
     [ExecuteInEditMode]
@@ -48,6 +49,9 @@ namespace FStudio.MatchEngine.Balls {
         private bool m_isOnCrossMode;
 
         private float crossHeight;
+
+
+        public Notifier<Vector3> CheckPos = new Notifier<Vector3>();
 
         public bool IsOnCrossMode {
             private set {
@@ -111,6 +115,19 @@ namespace FStudio.MatchEngine.Balls {
         /// <summary>
         /// Returns the BallPosition, or ball drop point.
         /// </summary>
+        ///
+       
+
+        private void Start()
+        {
+            CheckPos.Value = this.transform.position;
+            CheckPos.OnDataChanged += OnChangedPostion;
+        }
+
+        private void OnChangedPostion(Vector3 pos)
+        {
+            TransFormManager.Current.TransFormBallPos(pos);
+        }
         public Vector3 BallPosition (PlayerBase player, float relaxation = 0) {
             return Predicter (player, relaxation);
         }
@@ -122,10 +139,12 @@ namespace FStudio.MatchEngine.Balls {
 
         protected override void OnEnable () {
             if (Application.isPlaying) {
-                ballModel = GetComponent<Transform>();
-                ballModel.localScale *= 3;
+                //ballModel = GetComponent<Transform>();
+                //ballModel.localScale *= 3;
                 EventManager.Subscribe<GoalEvent>(OnGoal);
+                
             }
+            TransFormManager.Current.SetBall(this);
         }
 
         private void OnDisable() {
@@ -169,6 +188,7 @@ namespace FStudio.MatchEngine.Balls {
             ballPos.y = 0;
             float heightPow = Mathf.Max (0, 0.6f - height);
             shadowMaterial.SetFloat(BALL_SHADOW_POWER, heightPow);
+            CheckPos.Value = this.transform.position;
         }
 
         /// <summary>
