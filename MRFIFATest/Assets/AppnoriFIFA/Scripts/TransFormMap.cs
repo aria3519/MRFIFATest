@@ -17,7 +17,8 @@ namespace FStudio.MatchEngine
         private Transform _myTrans;
 
 
-        [SerializeField] private Button _canMove;
+        [SerializeField] private ButtonListener _butListener;
+
 
         /*private async void Start()
         {
@@ -33,19 +34,11 @@ namespace FStudio.MatchEngine
          }*/
 
 
-        /*private void Update()
-        {
 
-            if(Time.timeScale ==0 )
-            {
-                CheckOnOff();
-            }
-            
-        }*/
 
         private void OnEnable()
         {
-            _canMove.onClick.AddListener(() => CheckOnOff()); 
+            
             TransFormManager.Current.AddMap(this);
         }
 
@@ -65,12 +58,7 @@ namespace FStudio.MatchEngine
         }
 
 
-        public void CheckOnOff()
-        {
-           
-
-            TransFormManager.Current.OnOffButton();
-        }
+       
         
     }
 

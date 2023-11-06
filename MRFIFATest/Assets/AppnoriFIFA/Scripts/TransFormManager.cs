@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using FStudio.Utilities;
+using FStudio.Input;
 using System.Threading.Tasks;
 using System;
 using Appnori.Utils;
 using FStudio.MatchEngine.Balls;
 using FStudio.MatchEngine.Players.PlayerController;
+using UnityEngine.InputSystem;
+
+
+using UnityEngine.InputSystem.XR;
 using FStudio.Database;
 using FStudio.MatchEngine.Graphics;
 
@@ -15,6 +20,10 @@ using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 namespace FStudio.MatchEngine
 {
+   
+
+   
+
 
     public class TransFormManager : SceneObjectSingleton<TransFormManager>
     {
@@ -24,6 +33,8 @@ namespace FStudio.MatchEngine
         private bool once = false;
         
         //private List<CodeBasedController> Players_Postion = new List<CodeBasedController>();
+
+       
         public List<TransFormPlayerBase> _transPlayers { private set; get; } = new List<TransFormPlayerBase>();
         private TransFormBall _transBall = null;
 
@@ -53,6 +64,12 @@ namespace FStudio.MatchEngine
         [SerializeField] private AudioSource _Sound_Goal;
 
         [SerializeField] private bool movingMap = false;
+        [SerializeField] private bool sizeup = false;
+        [SerializeField] private bool sizedown = false;
+
+
+        [SerializeField] private InputActionAsset inputSystem ;
+
 
         private void Awake()
         {
@@ -74,9 +91,136 @@ namespace FStudio.MatchEngine
            
 
             Check_X.OnDataChanged += OnChange_SizeX;
-           
+            //initInput();
+
+
         }
 
+
+        private void initInput()
+        {
+            inputSystem.Enable();
+            InputActionMap Map = inputSystem.actionMaps[0];
+
+
+
+            InputAction Moving = Map.FindAction("Moving");
+            InputAction SizeUp = Map.FindAction("SizeUp");
+            InputAction SizeDown = Map.FindAction("SizeDown");
+
+            Moving.performed += ActionMoving;
+            SizeUp.performed += ActionSizeUp;
+            SizeDown.performed += ActionSizeDown;
+            /* SizeUp.started += ActionSizeUpStart;
+             SizeUp.canceled += ActionSizeUpEnd;
+             SizeDown.started += ActionSizeDownStart;
+             SizeDown.canceled += ActionSizeDownEnd;*/
+
+            //Debug.LogError("initInput");
+        }
+        private void Romoveinput()
+        {
+            inputSystem.Disable();
+            InputActionMap Map = inputSystem.actionMaps[0];
+            InputAction Moving = Map.FindAction("Moving");
+            InputAction SizeUp = Map.FindAction("SizeUp");
+            InputAction SizeDown = Map.FindAction("SizeDown");
+
+            Moving.performed -= ActionMoving;
+            SizeUp.performed -= ActionSizeUp;
+            SizeDown.performed -= ActionSizeDown;
+            /* SizeUp.started += ActionSizeUpStart;
+             SizeUp.canceled += ActionSizeUpEnd;
+             SizeDown.started += ActionSizeDownStart;
+             SizeDown.canceled += ActionSizeDownEnd;*/
+            //Debug.LogError("Romoveinput");
+        }
+
+
+        public void ActionMoving(InputAction.CallbackContext ctx)
+        {
+            //Debug.LogError("Moving");
+
+
+            Vector2 temp = ctx.action.ReadValue<Vector2>();
+            //Debug.LogError("Moving"+ temp);
+            Pos.x += temp.x*0.001f;
+            Pos.z += temp.y*0.001f;
+
+
+        }
+        public void ActionSizeUpStart(InputAction.CallbackContext ctx)
+        {
+            var temp = ctx.action.ReadValue<float>();
+            Debug.LogError("ActionSizeUp" + temp);
+            //Debug.LogError("SizeUpDown");
+
+            //_total_rate += temp * 0.0003f;
+            sizeup = true;
+
+        }
+        public void ActionSizeUpEnd(InputAction.CallbackContext ctx)
+        {
+            var temp = ctx.action.ReadValue<float>();
+            Debug.LogError("ActionSizeUp" + temp);
+            //Debug.LogError("SizeUpDown");
+
+            //_total_rate += temp * 0.0003f;
+            sizeup = false;
+
+        }
+        public void ActionSizeDownStart(InputAction.CallbackContext ctx)
+        {
+            var temp = ctx.action.ReadValue<float>();
+            Debug.LogError("ActionSizeUp" + temp);
+            //Debug.LogError("SizeUpDown");
+
+            sizedown = true;
+
+        }
+        public void ActionSizeDownEnd(InputAction.CallbackContext ctx)
+        {
+            var temp = ctx.action.ReadValue<float>();
+            Debug.LogError("ActionSizeUp" + temp);
+            //Debug.LogError("SizeUpDown");
+
+            sizedown = false;
+
+        }
+        public void ActionSizeUp(InputAction.CallbackContext ctx)
+        {
+            var temp = ctx.action.ReadValue<float>();
+            //Debug.LogError("ActionSizeUp" + temp);
+            //Debug.LogError("SizeUpDown");
+
+            _total_rate += temp * 0.0003f;
+
+        }
+        public void ActionSizeDown(InputAction.CallbackContext ctx)
+        {
+            var temp = ctx.action.ReadValue<float>();
+            //Debug.LogError("ActionSizeUp" + temp);
+            //Debug.LogError("SizeUpDown");
+
+            _total_rate -= temp * 0.0003f;
+
+        }
+
+
+        private void ChangeMapSize()
+        {
+            if(sizeup)
+            {
+                _total_rate += 0.0003f;
+            }
+
+            if(sizedown)
+            {
+                _total_rate -= 0.0003f;
+            }
+
+
+        }
 
         private void Update()
         {
@@ -84,9 +228,9 @@ namespace FStudio.MatchEngine
             if (Check_X.Value != _total_rate) Check_X.Value = _total_rate;
             if (ChangeMap_Pos.Value != Pos) ChangeMap_Pos.Value = Pos;
             if (Check_Qut.Value != Qut) Check_Qut.Value = Qut;
+            //ChangeMapSize();
 
-            
-         
+
 
         }
         
@@ -94,32 +238,28 @@ namespace FStudio.MatchEngine
 
         private void Moving()
         {
-            /*Vector3 temp = new Vector3(199.29f, 0.8f, -3f);
-            temp.x += XRController.posVec.x;
-            temp.y += XRController.posVec.y;
-            temp.z += XRController.posVec.z;
-            Pos = temp;*/
-            /*if (_transMap.transform.parent == null)
-            {
-                _transMap.transform.parent = GameObject.Find("RightHand Controller").transform;
-                Time.timeScale = 0;
-            }*/
-
-
             if (!movingMap)
             {
-                
-                if(_transMap.transform.parent!=null)
-                {
-                    Time.timeScale = 1.5f;
-                    _transMap.transform.SetParent(null);
-                }
-               
+                Romoveinput();
+                // 플레이 모드
+
+
                 return;
             }
+            initInput();
+            // 맵 편집 가능 모드
 
-            _transMap.transform.parent = GameObject.Find("RightHand Controller").transform;
-            Time.timeScale = 0;
+
+            /*InputActionMap inputActionMapL = inputActionsAsset.FindActionMap("XRI LeftHand");
+            InputActionMap inputActionMapR = inputActionsAsset.FindActionMap("XRI RightHand");
+            guid_rightHand = inputActionMapR.id;
+
+            InputAction inputActionL = inputActionMapL.FindAction("Is Tracked");
+            inputActionL.started += OnController;
+            inputActionL.canceled += OnController;
+            InputAction inputActionR = inputActionMapR.FindAction("Is Tracked");
+            inputActionR.started += OnController;
+            inputActionR.canceled += OnController;*/
 
 
 
@@ -148,7 +288,7 @@ namespace FStudio.MatchEngine
            
 
 
-            _transBall.TransSize(x);
+            //_transBall.TransSize(x);
 
             /*foreach(TransFormPlayerBase player in _transPlayers)
             {
@@ -329,8 +469,8 @@ namespace FStudio.MatchEngine
         {
             _transBall = ball;
 
-            _transBall.TransSize(_total_rate);
-            //_transBall.transform.parent = _transMap.transform;
+            _transBall.TransSize(1);
+            _transBall.transform.parent = _transMap.transform;
         }
 
 
@@ -348,19 +488,23 @@ namespace FStudio.MatchEngine
             if (!movingMap)
             {
                 movingMap = true;
-                if (_transMap.transform.parent != null)
-                {
-                    Time.timeScale = 1.5f;
-                    _transMap.transform.SetParent(null);
-                }
+                Time.timeScale = 1.5f;
+                // 맵 크기 변경 모드 해제 
 
-                
+
+                Romoveinput();
+
             }
             else
             {
                 movingMap = false;
-                _transMap.transform.parent = GameObject.Find("RightHand Controller").transform;
                 Time.timeScale = 0;
+                // 맵 크기 변경 모드
+
+                initInput();
+
+
+
             }
 
             
@@ -368,6 +512,9 @@ namespace FStudio.MatchEngine
 
         }
 
+
+
+        
 
     }
 }

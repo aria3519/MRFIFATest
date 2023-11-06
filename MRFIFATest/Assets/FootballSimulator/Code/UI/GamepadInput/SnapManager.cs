@@ -105,7 +105,7 @@ namespace FStudio.UI.GamepadInput {
 
         private float nextSnap;
 
-        private byte activeLayer;
+        [SerializeField]private byte activeLayer;
 
         private ScrollRect scrollRect;
         private SnapScrollViewExtension scrollRectExtension;

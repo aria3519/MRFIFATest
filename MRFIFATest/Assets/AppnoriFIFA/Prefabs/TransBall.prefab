@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 812592642733197442}
   - component: {fileID: 8300927039231263028}
   - component: {fileID: 4701460308090139332}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: TransBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5733801685998240472}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: HandR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1276217564264698553}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: HandL
   m_TagString: Untagged
   m_Icon: {fileID: 0}

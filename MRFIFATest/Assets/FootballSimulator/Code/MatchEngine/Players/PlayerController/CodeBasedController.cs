@@ -6,7 +6,7 @@ using FStudio.MatchEngine.Players.Behaviours;
 using FStudio.MatchEngine.Utilities;
 using System;
 using FStudio.MatchEngine.Graphics.EventRenderer;
-using Appnori.Util;
+using Appnori.Utils;
 using System.Collections;
 using System.Threading.Tasks;
 namespace FStudio.MatchEngine.Players.PlayerController {
@@ -19,6 +19,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
 
         public Notifier<string> CheckAnim;
         public Notifier<bool> CheckHoldBall;
+        public Notifier<bool> CheckCanPlay;
 
         private bool _once = false;
         public int myNumber { set; get; } = -1;
@@ -90,7 +91,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             
             CheckPlayerPos.Value = this.transform.position;
             CheckPlayerPos.OnDataChanged += OnChangedPostion;
-            CheckPlayerQ.Value =new Quaternion(0,0,0,0);
+            CheckPlayerQ.Value = transform.rotation;
             CheckPlayerQ.OnDataChanged += OnChangedRotation;
             //playerModel = GetComponent<Transform>();
             //playerModel.localScale *= 3;
@@ -101,16 +102,18 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             CheckAnim.OnDataChanged += OnChangeAniString;
             CheckHoldBall.Value = false;
             CheckHoldBall.OnDataChanged += OnChangeHoldBall;
+            CheckCanPlay.Value = false;
+            CheckCanPlay.OnDataChanged += OnChangeCanPlay;
 
             StartCoroutine(initTrans());
+
+
             
-
-
 
         }
         public void InitAnim()
         {
-            if (TransFormManager.Current.transPlayers.Count <=0
+            if (TransFormManager.Current._transPlayers.Count <=0
                 || myNumber == -1)
                 return;
             
@@ -130,7 +133,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
 
 
 
-                if (TransFormManager.Current.transPlayers.Count > 0
+                if (TransFormManager.Current._transPlayers.Count > 0
                  && myNumber!=-1)
                 {
                     //TransFormManager.Current.SetPlayerColor(myNumber, _Mat, BasePlayer.MatchPlayer.Player);
@@ -268,13 +271,14 @@ namespace FStudio.MatchEngine.Players.PlayerController {
             PlayerBase basePlayer,
             Material kitMaterial) {
 
-            Debug.Log("[PlayerBase] Set Player ()");
+            Debug.Log("[PlayerBase] Set Player ()"+LayerMask.NameToLayer(Tags.PLAYER_LAYER));
 
             this.BasePlayer = basePlayer;
 
             gameObject.name = basePlayer.MatchPlayer.Player.Name;
 
             gameObject.layer = LayerMask.NameToLayer(Tags.PLAYER_LAYER);
+           
             
             // set rigidbody and collider by the player.
             rigidbody.mass = basePlayer.MatchPlayer.GetStrength();
@@ -581,6 +585,8 @@ namespace FStudio.MatchEngine.Players.PlayerController {
                 CheckAnim.Value = playerAnimator.CheckType;
             if (CheckHoldBall.Value != BasePlayer.IsHoldingBall)
                 CheckHoldBall.Value = BasePlayer.IsHoldingBall;
+
+            CheckCanPlay.Value = BasePlayer.isInputControlled;
         }
      
    
@@ -639,6 +645,12 @@ namespace FStudio.MatchEngine.Players.PlayerController {
 
             TransFormManager.Current.TransFormAniHoldBall(myNumber, isHold);
         }
+        private void OnChangeCanPlay(bool isplay)
+        {
+
+            TransFormManager.Current.TransFormCanPlay(myNumber, isplay);
+        }
+        
 
 
 

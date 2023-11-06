@@ -188,7 +188,7 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""1635d3fe-58b6-4ba9-a4e2-f4b964f6b5c8"",
-                    ""path"": ""<XRController>/{Primary2DAxis}"",
+                    ""path"": ""<XRController>{RightHand}/primary2DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""XR"",
@@ -253,6 +253,28 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""f4dd1e16-cfa9-48b6-9bbd-1b8266eb1600"",
+                    ""path"": ""<PXR_Controller>/primaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
+                    ""action"": ""ChangePlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca39cfbb-3023-4a36-81ef-68689cbcdea1"",
+                    ""path"": ""<XRController>{LeftHand}/menu"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
+                    ""action"": ""ChangePlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""06552906-2eb0-40cd-ac91-50034b0c2074"",
                     ""path"": ""<XInputController>/buttonSouth"",
                     ""interactions"": """",
@@ -280,6 +302,17 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse;Touch"",
+                    ""action"": ""Pass"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""98d8b5ec-0e80-4746-a4d6-03c560ec4e40"",
+                    ""path"": ""<XRController>{LeftHand}/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
                     ""action"": ""Pass"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -319,6 +352,17 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""70d883d1-aac2-4a41-b934-2306c5298e4c"",
+                    ""path"": ""<XRController>{LeftHand}/grip"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
+                    ""action"": ""Tackle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""e4ea5432-e7e9-466e-8dd4-93ff7454b8a0"",
                     ""path"": ""<XInputController>/buttonWest"",
                     ""interactions"": """",
@@ -346,6 +390,17 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse;Touch"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b79e161a-9e8e-41c1-aeb2-18ffb2de04d4"",
+                    ""path"": ""<XRController>{RightHand}/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -412,6 +467,17 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse;Touch"",
+                    ""action"": ""ChangeTacticHigh"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11617057-5883-4b1f-8e60-f4ec86b728cb"",
+                    ""path"": ""<XRController>{RightHand}/menu"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
                     ""action"": ""ChangeTacticHigh"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

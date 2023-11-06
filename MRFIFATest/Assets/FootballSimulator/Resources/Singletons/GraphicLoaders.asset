@@ -16,4 +16,4 @@ MonoBehaviour:
   ballLoader: {fileID: 11400000, guid: ad7ea889c8534864f8437a7fabdd4d13, type: 2}
   renderLayer:
     serializedVersion: 2
-    m_Bits: 4095
+    m_Bits: 462774

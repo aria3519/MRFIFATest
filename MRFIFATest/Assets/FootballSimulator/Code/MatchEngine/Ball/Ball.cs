@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FStudio.MatchEngine.Players.PlayerController;
 using FStudio.MatchEngine.Graphics.EventRenderer;
-using Appnori.Util;
+using Appnori.Utils;
 
 namespace FStudio.MatchEngine.Balls {
     [ExecuteInEditMode]

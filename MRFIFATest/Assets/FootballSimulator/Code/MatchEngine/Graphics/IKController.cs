@@ -25,6 +25,14 @@ namespace FStudio.MatchEngine.Graphics {
             this.animator = GetComponent<Animator>();
         }
 
+        public void GetHand(Transform L,Transform R)
+        {
+            leftHand = L;
+            rightHand = R;
+
+
+        }
+
         public void LerpTo (float target) {
             if (currentAnimation != null) {
                 currentAnimation.Stop();

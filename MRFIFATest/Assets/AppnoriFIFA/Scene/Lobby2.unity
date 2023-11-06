@@ -1735,8 +1735,8 @@ MonoBehaviour:
   m_Camera: {fileID: 1851978755}
   m_OriginBaseGameObject: {fileID: 1321572241}
   m_CameraFloorOffsetObject: {fileID: 1645964475}
-  m_RequestedTrackingOriginMode: 0
-  m_CameraYOffset: 1.1176
+  m_RequestedTrackingOriginMode: 2
+  m_CameraYOffset: 0
 --- !u!4 &1321572244
 Transform:
   m_ObjectHideFlags: 0
@@ -2280,7 +2280,8 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras: []
+  m_Cameras:
+  - {fileID: 1351325047}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
@@ -2336,7 +2337,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 53175
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
