@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1616971478389044196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1616971478389044194}
+  - component: {fileID: 1616971478389044197}
+  m_Layer: 0
+  m_Name: CrowdBundles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1616971478389044194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616971478389044196}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1616971478389044197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616971478389044196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92bb838e04fb37f43a221003c3d845e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Heads:
+  - {fileID: 4300000, guid: f238e932e7157b94cbaa00522695913c, type: 2}
+  - {fileID: 4300000, guid: 2519ff31213e8a541931c511305b0e47, type: 2}
+  - {fileID: 4300000, guid: 844a16584d29e0149967b63932cef5e7, type: 2}
+  - {fileID: 4300000, guid: ed10c40e29b978a4c93039df6b1d0f08, type: 2}
+  - {fileID: 4300000, guid: 69f771734bdaed442a17981168b7aeaa, type: 2}
+  - {fileID: 4300000, guid: 66d8dc57d4dbcff4caf1bc7e77306090, type: 2}
+  - {fileID: 4300000, guid: 451433fa3a942314595a5c92ae50b886, type: 2}
+  - {fileID: 4300000, guid: 3d7697cecda2e5e4281bc0763fee20b3, type: 2}
+  - {fileID: 4300000, guid: 13d5d6a213145534993c2a97a4fde845, type: 2}
+  - {fileID: 4300000, guid: c40303533a4903547ab1a7d1de447a4f, type: 2}
+  - {fileID: 4300000, guid: 8ca0c945a40b4ac46b7354b457d55184, type: 2}
+  - {fileID: 4300000, guid: 43177621863971347b7ebabb2e3d99d2, type: 2}
+  - {fileID: 4300000, guid: 2685e956505babd48a5f157fb462903b, type: 2}
+  - {fileID: 4300000, guid: 600aa5b0666d4a24590c7657b685dfb2, type: 2}
+  - {fileID: 4300000, guid: 7e4283980bfefbd4cadaf541e7c609c7, type: 2}
+  - {fileID: 4300000, guid: 511faeb8dd090f94cbf92a3c84b90607, type: 2}
+  Bodys:
+  - {fileID: 4300000, guid: 9720d4b135762ac4f9a49d02e21b4cae, type: 2}
+  - {fileID: 4300000, guid: 5e1bdd8f30703a4458d4193ac51fd725, type: 2}
+  - {fileID: 4300000, guid: 06f7080792d88a74f8b01667e52c689c, type: 2}
+  - {fileID: 4300000, guid: 2fc3fab00f2c90340890193db0d456ba, type: 2}
+  - {fileID: 4300000, guid: e5d9e8f730ac5ee47b0948bd31108046, type: 2}
+  - {fileID: 4300000, guid: 26bac002c2ed081448affc2f68fd58fe, type: 2}
+  - {fileID: 4300000, guid: 1822140cea2c50d4dbe91128f2755bd8, type: 2}
+  - {fileID: 4300000, guid: bf4c4fa783d124740843d28c8911100d, type: 2}
+  - {fileID: 4300000, guid: 8ba92dd271227114c846ef69519bcbd1, type: 2}
+  - {fileID: 4300000, guid: 6fdf81a4742e91445be088d164402942, type: 2}
+  - {fileID: 4300000, guid: 97bff90371a6bb0419899181eb15214e, type: 2}
+  - {fileID: 4300000, guid: b561715862004db46bfc5b0f2269f0f4, type: 2}
+  - {fileID: 4300000, guid: fa6bb11dbe6a7414285162ebc568a3e2, type: 2}
+  - {fileID: 4300000, guid: cb98065b12c8e614f82b24e1f91fcccd, type: 2}
+  - {fileID: 4300000, guid: 703cd16ba476a5f4b9c45c775a0c8fb3, type: 2}
+  - {fileID: 4300000, guid: 2ba41de85bee1544588b82c069c329aa, type: 2}
+  Hands:
+  - {fileID: 4888830922091850411, guid: ba52d8991b2e0e840ad0a629286cd002, type: 3}
+  - {fileID: 6701942193873503675, guid: ba52d8991b2e0e840ad0a629286cd002, type: 3}
+  OptiHeads:
+  - {fileID: 4300000, guid: 873c4a1b5a72c244a8ab135dad5cd8a3, type: 2}
+  - {fileID: 4300000, guid: 960f32003ec0fb24ab5616cc1fcad395, type: 2}
+  - {fileID: 4300000, guid: 49be9b416dccd0d4b9d79ad4f008ef84, type: 2}
+  - {fileID: 4300000, guid: dea59747e4afbf04ea2d47e4e6f15304, type: 2}
+  - {fileID: 4300000, guid: 2dc9ec43275dc284f99ee34199b5aff4, type: 2}
+  - {fileID: 4300000, guid: 611069cd4333b3b4a8e02aec4460b1e8, type: 2}
+  - {fileID: 4300000, guid: aa7d2ce5e432f004aa5ff5f1a9dd0a27, type: 2}
+  - {fileID: 4300000, guid: 0d0782c4200bd7649b0b9f8280c55c50, type: 2}
+  - {fileID: 4300000, guid: 3e4171d33a6d52748bdca65b46302b41, type: 2}
+  - {fileID: 4300000, guid: dff1b2c1c84521f44bb7b19d51365acc, type: 2}
+  - {fileID: 4300000, guid: 983f2920f3b3bf545bfe199ef1a039e6, type: 2}
+  - {fileID: 4300000, guid: 644a8b2ec1f4a984eb211f46569837ce, type: 2}
+  - {fileID: 4300000, guid: 7f035ec3e3d08bb4ba7deb93c8f49d5b, type: 2}
+  - {fileID: 4300000, guid: 3cadc47d37e54d546a82b771bd71c90f, type: 2}
+  - {fileID: 4300000, guid: fe64dc0bed2a59d44a5f7f409b761edf, type: 2}
+  - {fileID: 4300000, guid: bcc1a4db1b56ea24898e1baebecf3ab8, type: 2}
+  OptiBodys:
+  - {fileID: 4300000, guid: fa1d92836321701428de58d32cc8f14f, type: 2}
+  - {fileID: 4300000, guid: c7ec1c539bcc905419a50180eee4e625, type: 2}
+  - {fileID: 4300000, guid: 7ccd01e6bbe7b114597fc58c94801499, type: 2}
+  - {fileID: 4300000, guid: b8965e241f7fd2c42afaedcd8f4d0d93, type: 2}
+  - {fileID: 4300000, guid: a92ee06d0a4312f4689ea66512c5270c, type: 2}
+  - {fileID: 4300000, guid: 387e0883c30371a4095ef0dc46032a89, type: 2}
+  - {fileID: 4300000, guid: 760299ce7e1ab89479aa957199827d95, type: 2}
+  - {fileID: 4300000, guid: 605e5a212694b214eaf12372d742b6e0, type: 2}
+  - {fileID: 4300000, guid: f8c20506fcd2b854ab5e69a71a36a27b, type: 2}
+  - {fileID: 4300000, guid: c884a2eb93b400e40b6fee0ef81c99fa, type: 2}
+  - {fileID: 4300000, guid: 3178f7cd4fa5f3c4cbff35083ecbf79e, type: 2}
+  - {fileID: 4300000, guid: ccfbcdf1c90dc6e49a2cb6e4d11bf84e, type: 2}
+  - {fileID: 4300000, guid: 8eadac900e0c9fd45a5f9b52cc4767f0, type: 2}
+  - {fileID: 4300000, guid: d8832323c9f73f54495d32d26cea6535, type: 2}
+  - {fileID: 4300000, guid: eb0a6fc8dbd0fbf42bd538e9975eac4e, type: 2}
+  - {fileID: 4300000, guid: ee74b5845e2eb264c954172499af632a, type: 2}
+  OptiHands:
+  - {fileID: 4888830922091850411, guid: cdfbe1eab872a3d4da6cec19053a4d85, type: 3}
+  - {fileID: 6701942193873503675, guid: cdfbe1eab872a3d4da6cec19053a4d85, type: 3}
+  Shaders:
+  - {fileID: 4800000, guid: 8d2bb70cbf9db8d4da26e15b26e74248, type: 3}
+  - {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
