@@ -456,7 +456,7 @@ namespace FStudio.MatchEngine
             _transPlayers.Add(pl);
             foreach (TransFormPlayerBase player1 in _transPlayers)
             {
-                player1.TransLocalSize(1);
+                player1.TransLocalSize(0.55f);
             }
 
 
@@ -469,7 +469,7 @@ namespace FStudio.MatchEngine
         {
             _transBall = ball;
 
-            _transBall.TransSize(1);
+            _transBall.TransSize(0.35f);
             _transBall.transform.parent = _transMap.transform;
         }
 

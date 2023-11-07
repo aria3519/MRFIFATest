@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+﻿/*#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Build;
@@ -40,3 +40,4 @@ class AppnoriBuildProcessor : IPreprocessBuildWithReport
     }
 }
 #endif
+*/
