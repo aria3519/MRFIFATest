@@ -128,7 +128,7 @@ namespace FStudio.MatchEngine {
         public MatchStatus MatchFlags = default;
 
         private GeneralUserInput generalInput;
-        public int currTeamNum1 { private set; get; } = 5; //playerNum
+        public int currTeamNum1 { private set; get; } = 11; //playerNum
         /// <summary>
         /// Which team started, team1 or team2?
         /// </summary>
@@ -269,7 +269,7 @@ namespace FStudio.MatchEngine {
         public static async Task CreateMatch(// 플레이어 숫자 조정 가능??
                 MatchDetails matchDetails
             ) {
-            int currTeamNum = 5; // playerNum
+            int currTeamNum = 11; // playerNum
             CurrentMatchDetails = matchDetails;
 
             var homeFormation = FormationRules.GetTeamFormation(matchDetails.homeTeam.Formation);

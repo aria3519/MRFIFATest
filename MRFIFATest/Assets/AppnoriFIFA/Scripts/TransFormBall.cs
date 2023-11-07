@@ -10,22 +10,24 @@ namespace FStudio.MatchEngine
         
         public List<GameObject> handPos { set; get; } = new List<GameObject>();
 
-        /*private void Awake()
+        private void Awake()
         {
             // handPos 자기 자식 2개 넣어줘야함
             handPos.Add(GameObject.Find("HandL"));
             handPos.Add(GameObject.Find("HandR"));
 
-            TransFormManager.Current.AddBall(this);
-        }*/
+             
 
-        private void OnEnable()
+            StartCoroutine(TransFormManager.Current.AddBall(this));
+        }
+
+        /*private void OnEnable()
         {
             handPos.Add(GameObject.Find("HandL"));
             handPos.Add(GameObject.Find("HandR"));
 
             TransFormManager.Current.AddBall(this);
-        }
+        }*/
         public void TransPostion(Vector3 pos)
         {
             this.transform.position = pos;

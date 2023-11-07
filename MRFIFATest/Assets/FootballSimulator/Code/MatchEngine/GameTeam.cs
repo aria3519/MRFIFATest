@@ -25,7 +25,7 @@ using FStudio.MatchEngine.AIManager;
 namespace FStudio.MatchEngine {
     public class GameTeam : MonoBehaviour {
         private const float NAME_TIMER_DELAYER = 1f;
-        private int currPlayerNum = 5;
+        private int currPlayerNum = 11;
         public PlayerBase[] GamePlayers;
 
         private IManager tacticManager;

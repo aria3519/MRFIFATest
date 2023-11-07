@@ -96,7 +96,7 @@ namespace FStudio.MatchEngine
 
         }
 
-
+       
         private void initInput()
         {
             inputSystem.Enable();
@@ -407,9 +407,9 @@ namespace FStudio.MatchEngine
         {
             player.myNumber = total_num;
             total_num++;
-            if (total_num > 10) 
+            if (total_num > 22) 
                 player.myNumber = -1;
-            if (player.myNumber<10 && player.myNumber!=-1)
+            if (player.myNumber<22 && player.myNumber!=-1)
             Addressables.InstantiateAsync("Assets/AppnoriFIFA/Prefabs/player.prefab",new Vector3(200, 0, 0),Quaternion.identity);
             /*foreach (TransFormPlayerBase player1 in _transPlayers)
             {
@@ -423,7 +423,7 @@ namespace FStudio.MatchEngine
         {
             if (_transPlayers.Count <= 0) return;
 
-            if (num < 5) _transPlayers[num].SetColor(_mat[0]);
+            if (num < 11) _transPlayers[num].SetColor(_mat[0]);
             else _transPlayers[num].SetColor(_mat[1]);
 
 
@@ -441,7 +441,7 @@ namespace FStudio.MatchEngine
         public void AddMap(TransFormMap map)
         {
             _transMap = map;
-            _total_rate = 0.02f;
+            
         }
         public void ReomveMap()
         {
@@ -465,12 +465,35 @@ namespace FStudio.MatchEngine
         {
             _transPlayers.Remove(pl);
         }
-        public void AddBall(TransFormBall ball)
+        /*public void AddBall(TransFormBall ball)
         {
             _transBall = ball;
 
+
+
             _transBall.TransSize(0.35f);
             _transBall.transform.parent = _transMap.transform;
+        }*/
+
+
+
+        public IEnumerator AddBall(TransFormBall ball)
+        {
+
+            if (_transBall == null)
+                yield return null;
+
+           
+            _transBall = ball;
+
+
+
+            _transBall.TransSize(0.35f);
+            _transBall.transform.parent = _transMap.transform;
+            _total_rate = 0.02f;
+
+
+
         }
 
 

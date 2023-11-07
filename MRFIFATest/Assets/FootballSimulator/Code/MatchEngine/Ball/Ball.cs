@@ -144,7 +144,9 @@ namespace FStudio.MatchEngine.Balls {
                 EventManager.Subscribe<GoalEvent>(OnGoal);
                 
             }
-            TransFormManager.Current.SetBall(this);
+
+            if (TransFormManager.Current !=null)
+                TransFormManager.Current.SetBall(this);
         }
 
         private void OnDisable() {

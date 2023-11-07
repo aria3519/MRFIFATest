@@ -20,27 +20,27 @@ namespace FStudio.MatchEngine
         [SerializeField] private ButtonListener _butListener;
 
 
-        /*private async void Start()
+        private async void Awake()
         {
             await Task.Run(() =>
             {
                 TransFormManager.Current.AddMap(this);
                 //_myTrans = GetComponent<Transform>();
             });
+        }
+       /* private void Awake()
+        {
+            TransFormManager.Current.AddMap(this);
         }*/
-        /* private void Awake()
-         {
-             TransFormManager.Current.AddMap(this);
-         }*/
 
 
 
 
-        private void OnEnable()
+        /*private void OnEnable()
         {
             
             TransFormManager.Current.AddMap(this);
-        }
+        }*/
 
 
 

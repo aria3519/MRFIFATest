@@ -188,7 +188,7 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""1635d3fe-58b6-4ba9-a4e2-f4b964f6b5c8"",
-                    ""path"": ""<XRController>{RightHand}/primary2DAxis"",
+                    ""path"": ""<XRController>{LeftHand}/primary2DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""XR"",
@@ -254,7 +254,7 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f4dd1e16-cfa9-48b6-9bbd-1b8266eb1600"",
-                    ""path"": ""<PXR_Controller>/primaryButton"",
+                    ""path"": ""<PXR_Controller>{RightHand}/primaryButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""XR"",
@@ -310,6 +310,17 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""98d8b5ec-0e80-4746-a4d6-03c560ec4e40"",
                     ""path"": ""<XRController>{LeftHand}/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
+                    ""action"": ""Pass"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c77a25d-0db3-4386-8213-db771d0b48e5"",
+                    ""path"": ""<PXR_Controller>{RightHand}/grip"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""XR"",
@@ -407,6 +418,17 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""0794ee5b-5d76-4a49-a5ba-517b4af1a61d"",
+                    ""path"": ""<PXR_Controller>{RightHand}/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""94540d8b-aa49-48e3-be79-2b47fab628b4"",
                     ""path"": ""<XInputController>/start"",
                     ""interactions"": """",
@@ -475,6 +497,17 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""11617057-5883-4b1f-8e60-f4ec86b728cb"",
                     ""path"": ""<XRController>{RightHand}/menu"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
+                    ""action"": ""ChangeTacticHigh"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2638d0aa-afcc-46ba-aebb-11facd12edb3"",
+                    ""path"": ""<XRController>{LeftHand}/primaryButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""XR"",

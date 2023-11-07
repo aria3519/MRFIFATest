@@ -33,17 +33,17 @@ namespace FStudio.MatchEngine
         }*/
 
 
-        private void Awake()
-        {
-            _target.SetActive(false);
-            TransFormManager.Current.AddPlayer(this);
-        }
-
-        /*private void OnEnable()
+        /*private void Awake()
         {
             _target.SetActive(false);
             TransFormManager.Current.AddPlayer(this);
         }*/
+
+        private void OnEnable()
+        {
+            _target.SetActive(false);
+            TransFormManager.Current.AddPlayer(this);
+        }
 
         private void OnDisable()
         {
