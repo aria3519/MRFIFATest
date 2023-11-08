@@ -32,13 +32,13 @@ public class PXR_Manager_Support : MonoBehaviour
 
     void OnEnable()
     {
-        Unity.XR.PXR.PXR_Plugin.System.SeethroughStateChangedChanged = null;
-        Unity.XR.PXR.PXR_Plugin.System.SeethroughStateChangedChanged += SeeThroughStateChangedCallback;
+        //Unity.XR.PXR.PXR_Plugin.System.SeethroughStateChangedChanged = null;
+        //Unity.XR.PXR.PXR_Plugin.System.SeethroughStateChangedChanged += SeeThroughStateChangedCallback;
     }
 
     void OnDisable()
     {
-        Unity.XR.PXR.PXR_Plugin.System.SeethroughStateChangedChanged -= SeeThroughStateChangedCallback;
+        //Unity.XR.PXR.PXR_Plugin.System.SeethroughStateChangedChanged -= SeeThroughStateChangedCallback;
     }
 
     void SeeThroughStateChangedCallback(int value)

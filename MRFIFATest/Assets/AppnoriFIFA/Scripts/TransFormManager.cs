@@ -18,6 +18,8 @@ using FStudio.MatchEngine.Graphics;
 
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+
+using Unity.XR.PXR;
 namespace FStudio.MatchEngine
 {
    
@@ -63,7 +65,7 @@ namespace FStudio.MatchEngine
 
         [SerializeField] private AudioSource _Sound_Goal;
 
-        [SerializeField] private bool movingMap = false;
+        [SerializeField] private bool movingMap = true;
         [SerializeField] private bool sizeup = false;
         [SerializeField] private bool sizedown = false;
 
@@ -96,7 +98,17 @@ namespace FStudio.MatchEngine
 
         }
 
-       
+        protected override void  OnEnable()
+        {
+            PXR_Boundary.EnableSeeThroughManual(true);
+           
+        }
+        private void OnDisable()
+        {
+            PXR_Boundary.EnableSeeThroughManual(false);
+          
+        }
+
         private void initInput()
         {
             inputSystem.Enable();
@@ -105,12 +117,16 @@ namespace FStudio.MatchEngine
 
 
             InputAction Moving = Map.FindAction("Moving");
+            InputAction MovingUpDown = Map.FindAction("MovingUpDown");
             InputAction SizeUp = Map.FindAction("SizeUp");
             InputAction SizeDown = Map.FindAction("SizeDown");
 
             Moving.performed += ActionMoving;
+            MovingUpDown.performed += ActionMovingUPDown;
             SizeUp.performed += ActionSizeUp;
+            SizeUp.canceled += ActionSizeUpEnd;
             SizeDown.performed += ActionSizeDown;
+            SizeDown.canceled += ActionSizeDownEnd;
             /* SizeUp.started += ActionSizeUpStart;
              SizeUp.canceled += ActionSizeUpEnd;
              SizeDown.started += ActionSizeDownStart;
@@ -123,12 +139,16 @@ namespace FStudio.MatchEngine
             inputSystem.Disable();
             InputActionMap Map = inputSystem.actionMaps[0];
             InputAction Moving = Map.FindAction("Moving");
+            InputAction MovingUpDown = Map.FindAction("MovingUpDown");
             InputAction SizeUp = Map.FindAction("SizeUp");
             InputAction SizeDown = Map.FindAction("SizeDown");
 
             Moving.performed -= ActionMoving;
+            MovingUpDown.performed -= ActionMovingUPDown;
             SizeUp.performed -= ActionSizeUp;
+            SizeUp.canceled -= ActionSizeUpEnd;
             SizeDown.performed -= ActionSizeDown;
+            SizeDown.canceled -= ActionSizeDownEnd;
             /* SizeUp.started += ActionSizeUpStart;
              SizeUp.canceled += ActionSizeUpEnd;
              SizeDown.started += ActionSizeDownStart;
@@ -149,44 +169,22 @@ namespace FStudio.MatchEngine
 
 
         }
-        public void ActionSizeUpStart(InputAction.CallbackContext ctx)
+        public void ActionMovingUPDown(InputAction.CallbackContext ctx)
         {
-            var temp = ctx.action.ReadValue<float>();
-            Debug.LogError("ActionSizeUp" + temp);
-            //Debug.LogError("SizeUpDown");
+            //Debug.LogError("Moving");
 
-            //_total_rate += temp * 0.0003f;
-            sizeup = true;
+
+            Vector2 temp = ctx.action.ReadValue<Vector2>();
+            //Debug.LogError("Moving"+ temp);
+
+            Pos.y += temp.y * 0.001f;
+           
+
 
         }
-        public void ActionSizeUpEnd(InputAction.CallbackContext ctx)
-        {
-            var temp = ctx.action.ReadValue<float>();
-            Debug.LogError("ActionSizeUp" + temp);
-            //Debug.LogError("SizeUpDown");
 
-            //_total_rate += temp * 0.0003f;
-            sizeup = false;
-
-        }
-        public void ActionSizeDownStart(InputAction.CallbackContext ctx)
-        {
-            var temp = ctx.action.ReadValue<float>();
-            Debug.LogError("ActionSizeUp" + temp);
-            //Debug.LogError("SizeUpDown");
-
-            sizedown = true;
-
-        }
-        public void ActionSizeDownEnd(InputAction.CallbackContext ctx)
-        {
-            var temp = ctx.action.ReadValue<float>();
-            Debug.LogError("ActionSizeUp" + temp);
-            //Debug.LogError("SizeUpDown");
-
-            sizedown = false;
-
-        }
+        
+        
         public void ActionSizeUp(InputAction.CallbackContext ctx)
         {
             var temp = ctx.action.ReadValue<float>();
@@ -194,7 +192,18 @@ namespace FStudio.MatchEngine
             //Debug.LogError("SizeUpDown");
 
             _total_rate += temp * 0.0003f;
+            sizeup = true;
+            
+        }
+        public void ActionSizeUpEnd(InputAction.CallbackContext ctx)
+        {
+            var temp = ctx.action.ReadValue<float>();
+            //Debug.LogError("ActionSizeUp" + temp);
+            //Debug.LogError("SizeUpDown");
 
+            //_total_rate += temp * 0.0003f;
+            sizeup = false;
+          
         }
         public void ActionSizeDown(InputAction.CallbackContext ctx)
         {
@@ -203,6 +212,18 @@ namespace FStudio.MatchEngine
             //Debug.LogError("SizeUpDown");
 
             _total_rate -= temp * 0.0003f;
+            sizedown = true;
+          
+
+        }
+        public void ActionSizeDownEnd(InputAction.CallbackContext ctx)
+        {
+            var temp = ctx.action.ReadValue<float>();
+            //Debug.LogError("ActionSizeUp" + temp);
+            //Debug.LogError("SizeUpDown");
+
+            sizedown = false;
+          
 
         }
 
@@ -214,7 +235,7 @@ namespace FStudio.MatchEngine
                 _total_rate += 0.0003f;
             }
 
-            if(sizedown)
+            else if(sizedown)
             {
                 _total_rate -= 0.0003f;
             }
@@ -224,7 +245,7 @@ namespace FStudio.MatchEngine
 
         private void Update()
         {
-            //Moving();
+            
             if (Check_X.Value != _total_rate) Check_X.Value = _total_rate;
             if (ChangeMap_Pos.Value != Pos) ChangeMap_Pos.Value = Pos;
             if (Check_Qut.Value != Qut) Check_Qut.Value = Qut;
@@ -236,35 +257,7 @@ namespace FStudio.MatchEngine
         
 
 
-        private void Moving()
-        {
-            if (!movingMap)
-            {
-                Romoveinput();
-                // 플레이 모드
-
-
-                return;
-            }
-            initInput();
-            // 맵 편집 가능 모드
-
-
-            /*InputActionMap inputActionMapL = inputActionsAsset.FindActionMap("XRI LeftHand");
-            InputActionMap inputActionMapR = inputActionsAsset.FindActionMap("XRI RightHand");
-            guid_rightHand = inputActionMapR.id;
-
-            InputAction inputActionL = inputActionMapL.FindAction("Is Tracked");
-            inputActionL.started += OnController;
-            inputActionL.canceled += OnController;
-            InputAction inputActionR = inputActionMapR.FindAction("Is Tracked");
-            inputActionR.started += OnController;
-            inputActionR.canceled += OnController;*/
-
-
-
-
-        }
+        
        
 
         public void SetDic(Dictionary<string, int> dict)
@@ -340,6 +333,8 @@ namespace FStudio.MatchEngine
             tempPos.z *= _total_rate;
             tempPos.z += Pos.z;
             _transBall.TransPostion(tempPos);
+            tempPos.y =_transMap.transform.position.y+0.01f;
+            _transBall.TransPostionShadow(tempPos);
         }
 
         public void TransFormPlayerPos(Vector3 pos, int num)
@@ -488,7 +483,7 @@ namespace FStudio.MatchEngine
 
 
 
-            _transBall.TransSize(0.35f);
+            _transBall.TransSize(1f);
             _transBall.transform.parent = _transMap.transform;
             _total_rate = 0.02f;
 
@@ -508,7 +503,8 @@ namespace FStudio.MatchEngine
 
         public void OnOffButton()
         {
-            if (!movingMap)
+            if (!movingMap
+                )
             {
                 movingMap = true;
                 Time.timeScale = 1.5f;

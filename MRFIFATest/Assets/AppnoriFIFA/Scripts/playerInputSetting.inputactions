@@ -16,7 +16,7 @@
                 },
                 {
                     "name": "SizeUp",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "d606ae1e-abc0-40d0-8203-b9c5c763d886",
                     "expectedControlType": "",
                     "processors": "",
@@ -25,19 +25,28 @@
                 },
                 {
                     "name": "SizeDown",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "1ebbb42b-22d2-4e98-ab6b-491d22833308",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "MovingUpDown",
+                    "type": "PassThrough",
+                    "id": "1b645d4c-0126-42d2-8f5a-741a1586ae85",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "2a343cc7-b2f0-4d4f-a430-897ff33dc8cf",
-                    "path": "<XRController>/primary2DAxis",
+                    "path": "<XRController>{RightHand}/primary2DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
@@ -64,6 +73,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SizeDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "340a4652-fbee-4004-8fb2-c4d348f540e4",
+                    "path": "<XRController>{LeftHand}/primary2DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovingUpDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
