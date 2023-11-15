@@ -138,7 +138,8 @@ namespace FStudio.MatchEngine.Players.PlayerController {
                 {
                     //TransFormManager.Current.SetPlayerColor(myNumber, _Mat, BasePlayer.MatchPlayer.Player);
 
-                    TransFormManager.Current.SetPlayerColor(myNumber);
+                    TransFormManager.Current.SetPlayerColor(myNumber,transform.position);
+                   
                     yield break;
 
                 }

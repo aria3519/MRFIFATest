@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
+using System.Linq;
 namespace FStudio.MatchEngine
 {
     public class TransFormBall : MonoBehaviour
@@ -13,6 +14,11 @@ namespace FStudio.MatchEngine
         public GameObject _shadow;
         public float _A = 300f;
 
+        public bool IsholdGK { get; private set; } = false;
+
+
+        private List<Vector3> _beforePos = new List<Vector3>();
+        public Vector3 testVec;
         private void Awake()
         {
             // handPos 자기 자식 2개 넣어줘야함
@@ -22,6 +28,12 @@ namespace FStudio.MatchEngine
              
 
             StartCoroutine(TransFormManager.Current.AddBall(this));
+        }
+        public void SetHoldGk(bool ishold)
+        {
+            IsholdGK = ishold;
+            if(ishold)
+                transform.Rotate(new Vector3(0, 0, 0));
         }
 
         /*private void OnEnable()
@@ -35,8 +47,21 @@ namespace FStudio.MatchEngine
         {
             this.transform.position = pos;
 
+            _beforePos.Add(pos);
+            if (_beforePos.Count >= 2
+                && !IsholdGK)
+            {
+                var frist = _beforePos.First();
+                testVec = Vector3.Lerp(pos, frist, 0.5f) * _A;
+                _beforePos.Remove(frist);
+
+                transform.Rotate(testVec);
+            }
+            
+           
+
         }
-        public void TransPostionShadow(Vector3 pos)
+       /* public void TransPostionShadow(Vector3 pos)
         {
             if(_shadow!= null)
             {
@@ -57,7 +82,7 @@ namespace FStudio.MatchEngine
             }
 
 
-        }
+        }*/
         public void TransRotation(Quaternion qu)
         {
             this.transform.rotation = qu;
@@ -65,7 +90,7 @@ namespace FStudio.MatchEngine
         }
         public void TransSize(float size)
         {
-            this.transform.localScale  = new Vector3(size*3f,size * 3f, size * 3f);
+            this.transform.localScale  = new Vector3(size*4f,size * 4f, size * 4f);
 
         }
 

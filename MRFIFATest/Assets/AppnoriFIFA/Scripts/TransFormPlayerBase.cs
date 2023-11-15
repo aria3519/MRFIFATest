@@ -110,6 +110,8 @@ namespace FStudio.MatchEngine
                 _ikCon.GetHand(ball.handPos[0].transform, ball.handPos[1].transform);
 
                 anim.SetBool("IsHoldingBall", true);
+
+
                 
             }
 
