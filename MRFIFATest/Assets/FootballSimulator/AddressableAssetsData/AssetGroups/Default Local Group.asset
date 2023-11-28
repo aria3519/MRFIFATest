@@ -383,6 +383,10 @@ MonoBehaviour:
     m_Address: Assets/AppnoriFIFA/Scripts/playerInputSetting.inputactions
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: f294be9d6deaf90428ded385de02c0e8
+    m_Address: Assets/AppnoriFIFA/Prefabs/TransFormMap2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 47241fa8069554f4a9021889dfcb6227, type: 2}
   m_SchemaSet:

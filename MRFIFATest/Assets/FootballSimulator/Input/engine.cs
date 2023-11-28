@@ -309,7 +309,7 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""98d8b5ec-0e80-4746-a4d6-03c560ec4e40"",
-                    ""path"": ""<XRController>{LeftHand}/trigger"",
+                    ""path"": ""<XRController>{RightHand}/grip"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""XR"",

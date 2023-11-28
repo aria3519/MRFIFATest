@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace FStudio.MatchEngine
 {
 
- 
 
-    
+
+
 
     public class TransFormMap : MonoBehaviour
     {
@@ -17,9 +17,9 @@ namespace FStudio.MatchEngine
         private Transform _myTrans;
 
 
-        [SerializeField] private ButtonListener _butListener;
 
 
+        public GameObject _map;
         private async void Awake()
         {
             await Task.Run(() =>
@@ -28,11 +28,11 @@ namespace FStudio.MatchEngine
                 //_myTrans = GetComponent<Transform>();
             });
         }
-       /* private void Awake()
-        {
-            TransFormManager.Current.AddMap(this);
-        }*/
-
+        /* private void Awake()
+         {
+             TransFormManager.Current.AddMap(this);
+         }
+ */
 
 
 
@@ -46,8 +46,12 @@ namespace FStudio.MatchEngine
 
         public void  ChangeSize(float size_X)
         {
+            if (size_X > 1 || size_X < 0.005f) return;
+
+
 
             transform.localScale = new Vector3(size_X, size_X, size_X);
+            //_map.transform.localScale  = new Vector3(size_X, size_X, size_X);
         }
 
 

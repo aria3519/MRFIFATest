@@ -89,7 +89,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
         private void Start () {
             
             
-            CheckPlayerPos.Value = this.transform.position;
+            CheckPlayerPos.Value = new Vector3(0,0,0);
             CheckPlayerPos.OnDataChanged += OnChangedPostion;
             CheckPlayerQ.Value = transform.rotation;
             CheckPlayerQ.OnDataChanged += OnChangedRotation;

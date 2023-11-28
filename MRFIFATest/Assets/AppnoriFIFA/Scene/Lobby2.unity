@@ -1897,6 +1897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputSystem: {fileID: -944628639613478452, guid: 585d7114521e4bd498f90acd1971a208, type: 3}
+  _XRcontros: []
 --- !u!4 &1264429625
 Transform:
   m_ObjectHideFlags: 0
@@ -2628,7 +2629,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 249855
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

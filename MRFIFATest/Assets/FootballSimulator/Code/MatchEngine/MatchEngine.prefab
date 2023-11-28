@@ -3025,7 +3025,7 @@ MonoBehaviour:
   _ballShadow: {fileID: 8237585071075856339}
   _BallShadowA: 0.025
   _MapSizeA: 0.0005
-  _MapMovingA: 2.5
+  _MapMovingA: 1
 --- !u!1 &8999326747741799426
 GameObject:
   m_ObjectHideFlags: 0

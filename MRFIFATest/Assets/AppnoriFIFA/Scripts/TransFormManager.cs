@@ -51,6 +51,8 @@ namespace FStudio.MatchEngine
 
         [SerializeField]
         private float _total_rate = 1f;
+        private bool checkTarget = false;
+        private Vector3 mapPostions = new Vector3(0,0,0);
         
       
 
@@ -82,22 +84,21 @@ namespace FStudio.MatchEngine
         private void Awake()
         {
             //Debug.LogError("TransFormManager Awake");
-
-
-            Pos = new Vector3(199.29f, 0.8f, -3f);
+            //42.2 ,0, 31.4
+           // Pos = new Vector3(200.14f, 0.8f, -2.411f);
+            Pos = new Vector3(199.29f, 0.8f, -2.5f);
             Qut = new Quaternion(0, 0, 0, 0);
             ChangeMap_Pos.Value = Pos;
             Check_Qut.Value = Qut;
             ChangeMap_Pos.OnDataChanged += OnChange_Pos;
             Check_Qut.OnDataChanged += OnChange_Qut;
 
-            Addressables.InstantiateAsync("AppnoriFIFA/Prefabs/TransFormMap.prefab", new Vector3(ChangeMap_Pos.Value.x, ChangeMap_Pos.Value.y, ChangeMap_Pos.Value.z), Quaternion.identity);
+            Addressables.InstantiateAsync("Assets/AppnoriFIFA/Prefabs/TransFormMap2.prefab", new Vector3(ChangeMap_Pos.Value.x, ChangeMap_Pos.Value.y, ChangeMap_Pos.Value.z), Quaternion.identity);
             
             _total_rate = 1f;
             //_transMap.ChangeSize(_X);
             Check_X.Value = _total_rate;
            
-
             Check_X.OnDataChanged += OnChange_SizeX;
             ContrlPos.Add(new Vector3(0, 0, 0));
             ContrlPos.Add(new Vector3(0, 0, 0));
@@ -131,12 +132,12 @@ namespace FStudio.MatchEngine
 
         protected override void  OnEnable()
         {
-            PXR_Boundary.EnableSeeThroughManual(true);
+            //PXR_Boundary.EnableSeeThroughManual(true);
            
         }
         private void OnDisable()
         {
-            PXR_Boundary.EnableSeeThroughManual(false);
+            //PXR_Boundary.EnableSeeThroughManual(false);
           
         }
 
@@ -264,10 +265,11 @@ namespace FStudio.MatchEngine
 
         private void ChangeMapSize()
         {
-           /* if (ControllerManager._ButtonSt.GripL == false
-                  && ControllerManager._ButtonSt.GripR == false)
-                return;*/
-
+            /* if (ControllerManager._ButtonSt.GripL == false
+                   && ControllerManager._ButtonSt.GripR == false)
+                 return;*/
+            if (Time.timeScale != 0)
+                return;
 
             Vector3 contrlPos = new Vector3(0, 0, 0);
             Vector3 contrlPosOther = new Vector3(0, 0, 0);
@@ -281,41 +283,54 @@ namespace FStudio.MatchEngine
                 ContrlGap.Add(contrlPos);
                 ContrlGap.Add(contrlPosOther);
 
-                float check = -1f;
-                
-                if (Vector3.Distance(contrlPos, contrlPosOther) - Vector3.Distance(ContrlGap[0], ContrlGap[1]) 
-                    > 0.01f)
-                {
-                    check = 1;
-                    //_total_rate += _MapSizeA * Vector3.Distance(contrlPos, contrlPosOther);
-
-                }
-                if (Vector3.Distance(ContrlGap[0], ContrlGap[1]) - Vector3.Distance(contrlPos, contrlPosOther)
-                    > 0.01f)
-                {
-                    check = 0;
-                    //_total_rate -= _MapSizeA * Vector3.Distance(contrlPos, contrlPosOther);
-
-                }
-
-                if(check== 1) _total_rate += _MapSizeA * Vector3.Distance(contrlPos, contrlPosOther);
-                else if(check == 0) _total_rate -= _MapSizeA * Vector3.Distance(contrlPos, contrlPosOther);
-
-
-
-
                 if (ContrlGap.Count > 2)
                 {
+
+                    if (Vector3.Distance(contrlPos, contrlPosOther) - Vector3.Distance(ContrlGap[0], ContrlGap[1]) 
+                    > 0.01f)
+                {
+                    _total_rate *= (1+(Vector3.Distance(contrlPos, contrlPosOther) - Vector3.Distance(ContrlGap[0], ContrlGap[1])));
+                   
+                    //_total_rate += _MapSizeA ;
+                    // _total_rate += _MapSizeA * (Vector3.Distance(contrlPos, contrlPosOther) - Vector3.Distance(ContrlGap[0], ContrlGap[1]));
+
+                }
+                else if(Vector3.Distance(ContrlGap[0], ContrlGap[1]) - Vector3.Distance(contrlPos, contrlPosOther)
+                    > 0.01f)
+                {
+
+                    if((1 - (Vector3.Distance(ContrlGap[0], ContrlGap[1]) - Vector3.Distance(contrlPos, contrlPosOther)))>0)
+                    _total_rate *= (1 - (Vector3.Distance(ContrlGap[0], ContrlGap[1]) - Vector3.Distance(contrlPos, contrlPosOther)));
+                   
+                    //_total_rate -= _MapSizeA ;
+                    //_total_rate -= _MapSizeA* (Vector3.Distance(ContrlGap[0], ContrlGap[1]) - Vector3.Distance(contrlPos, contrlPosOther));
+                }
+
+                /* if(check== 1) _total_rate += _MapSizeA * Vector3.Distance(contrlPos, contrlPosOther);
+                 else if(check == 0) _total_rate -= _MapSizeA * Vector3.Distance(contrlPos, contrlPosOther);*/
+                //if (check == 1) _total_rate += _MapSizeA ;
+                //else if (check == 0) _total_rate -= _MapSizeA ;
+
+
+
+               
+
                     ContrlGap.Remove(ContrlGap.First<Vector3>());
                     ContrlGap.Remove(ContrlGap.First<Vector3>());
                 }
-               
-               
+
+
 
             }
-            Vector3 temp = new Vector3(0, 0, 0);
-            if (ControllerManager._ButtonSt.TriL == true)
+            else
             {
+                ContrlGap.Clear();
+            }
+            Vector3 temp = new Vector3(0, 0, 0);
+            if (ControllerManager._ButtonSt.TriL == true
+                )
+            {
+                 //&& checkTarget == false
                 contrlPos = ControllerManager.Current._XRcontros[0].transform.position;
                 //_transMap.transform.position = contrlPos;
                 // 이전 위치 기억 하고 이전 위치에서 현재 위치 빼서 적용하기
@@ -323,74 +338,93 @@ namespace FStudio.MatchEngine
                 if (ContrlPos[0] == new Vector3(0, 0, 0))
                 {
                     ContrlPos[0] = contrlPos;
+                    mapPostions = _transMap.transform.position;
                     return;
                 }
-                temp = _transMap.transform.position;
-                if((contrlPos - ContrlPos[0]).magnitude >0.01f)
+                temp = mapPostions;
+                /*if ((contrlPos - ContrlPos[0]).magnitude > 0.01f)
                 {
                     temp += (contrlPos - ContrlPos[0]).normalized * _MapMovingA;
-                    _transMap.transform.position = Vector3.Lerp(_transMap.transform.position, temp, Time.unscaledDeltaTime);
-                   
-                }
-                    
-                //Debug.LogError("1ss"+ (contrlPos - ContrlPos[0]).normalized);
-                //Debug.LogError("2ss"+ Time.unscaledDeltaTime);
-              
-                ContrlPos[0] = contrlPos;
+                    //ChangeMap_Pos.Value = Vector3.Lerp(_transMap.transform.position, temp, Time.unscaledDeltaTime);
+                    Pos = temp;
+                    //checkTarget = true;
+                }*/
+
+                //temp += (contrlPos - ContrlPos[0]).normalized * _MapMovingA;
+                //Pos = temp;
+                //ContrlPos[0] = contrlPos;
+
+                temp += (contrlPos - ContrlPos[0]).normalized * ((contrlPos - ContrlPos[0]).magnitude * _MapMovingA);
+                Pos = temp;
 
 
             }
-            else if (ControllerManager._ButtonSt.TriR == true)
+            else if (ControllerManager._ButtonSt.TriR == true
+               )
             {
+                //&& checkTarget == false
                 contrlPos = ControllerManager.Current._XRcontros[1].transform.position;
 
                 //_transMap.transform.position = contrlPos;
                 if (ContrlPos[1] == new Vector3(0, 0, 0))
                 {
+                    mapPostions = _transMap.transform.position;
                     ContrlPos[1] = contrlPos;
                     return;
                 }
-                temp = _transMap.transform.position;
-                if ((contrlPos - ContrlPos[1]).magnitude > 0.01f)
+                temp = mapPostions;
+                /*if ((contrlPos - ContrlPos[1]).magnitude > 0.01f)
                 {
                     temp += (contrlPos - ContrlPos[1]).normalized * _MapMovingA;
-                    _transMap.transform.position = Vector3.Lerp(_transMap.transform.position, temp, Time.unscaledDeltaTime);
-                   
+                    //ChangeMap_Pos.Value = Vector3.Lerp(_transMap.transform.position, temp, Time.unscaledDeltaTime);
+                    Pos = temp;
+                    //checkTarget = true;
+                }*/
+                /*temp += (contrlPos - ContrlPos[1]).normalized * _MapMovingA;
+                Pos = temp;*/
 
-                }
-
-
-               // Debug.LogError("1ss" + (contrlPos - ContrlPos[1]).normalized);
+                // Debug.LogError("1ss" + (contrlPos - ContrlPos[1]).normalized);
                 //Debug.LogError("2ss" + Time.unscaledDeltaTime);
 
 
+                temp += (contrlPos - ContrlPos[1]).normalized * ((contrlPos - ContrlPos[1]).magnitude* _MapMovingA);
+
+                Pos = temp;
 
 
 
-
-                ContrlPos[1] = contrlPos;
+                //ContrlPos[1] = contrlPos;
             }
-           
+            else
+            {
+                ContrlPos[0] = new Vector3(0, 0, 0);
+                ContrlPos[1] = new Vector3(0, 0, 0);
+
+
+            }
+
+
 
         }
+        
 
         private void Update()
         {
             
             if (Check_X.Value != _total_rate) Check_X.Value = _total_rate;
-            //if (ChangeMap_Pos.Value != Pos) ChangeMap_Pos.Value = Pos;
-            //if (Check_Qut.Value != Qut) Check_Qut.Value = Qut;
+            if (ChangeMap_Pos.Value != Pos) ChangeMap_Pos.Value = Pos;
+            if (Check_Qut.Value != Qut) Check_Qut.Value = Qut;
 
 
 
-            //ChangeMapSize();
-        }
-
-
-        private void LateUpdate()
-        {
             ChangeMapSize();
         }
+
+
+        /*private void LateUpdate()
+        {
+            //ChangeMapSize();
+        }*/
 
 
 
@@ -429,13 +463,55 @@ namespace FStudio.MatchEngine
         {
             // 42.6 ,0, 29.95
             //* (29.95f / 42.6f);
+
+            //StartCoroutine(MapMoving(x));
+
+
+
+
+
+
+
+
             Vector3 temp;
 
             temp = _transMap.transform.position;
             temp.x = x.x;
+            //temp.x += _total_rate*42.2f;
             temp.y = x.y;
             temp.z = x.z;
-            _transMap.transform.position = temp;
+            //temp.z += _total_rate* 31.4f;
+
+            _transMap.transform.position =  temp;
+
+            //_transMap.transform.position = Vector3.Lerp(_transMap.transform.position,temp, Time.unscaledDeltaTime);
+            //checkTarget = false;
+        }
+
+        private IEnumerator MapMoving(Vector3 x)
+        {
+            float targerRate = 0;
+            Vector3 temp;
+            temp = _transMap.transform.position;
+            temp.x = x.x;
+            //temp.x += _total_rate*42.2f;
+            temp.y = x.y;
+            temp.z = x.z;
+            //temp.z += _total_rate* 31.4f;
+            while (true)
+            {
+               
+                //_transMap.transform.position =     temp;
+                targerRate += 0.2f;
+                _transMap.transform.position = Vector3.Lerp(_transMap.transform.position,temp, targerRate);
+                //Debug.LogError("ssss"+_transMap.transform.position);
+                if (targerRate >= 1)
+                {
+                    checkTarget = false;
+                    break;
+                }
+                yield return null;
+            }
         }
         private void OnChange_Qut(Quaternion x)
         {
@@ -459,15 +535,17 @@ namespace FStudio.MatchEngine
             Vector3 tempPos = pos;
             tempPos.x *= _total_rate;
             //tempPos.z *= _X * (29.95f / 42.6f);
-            tempPos.x += Pos.x;
+            tempPos.x += _transMap.transform.position.x;
+            tempPos.x -= 42.2f *_total_rate;
             tempPos.y += 0.3f;
             tempPos.y *= _total_rate;
            
-            tempPos.y += Pos.y;
+            tempPos.y += _transMap.transform.position.y;
 
             float y = tempPos.y;
             tempPos.z *= _total_rate;
-            tempPos.z += Pos.z;
+            tempPos.z += _transMap.transform.position.z;
+            tempPos.z += -31.4f *+_total_rate;
             _transBall.TransPostion(tempPos);
             tempPos.y =_transMap.transform.position.y+0.005f;
             //_transBall.TransPostionShadow(tempPos);
@@ -499,11 +577,13 @@ namespace FStudio.MatchEngine
             tempPos.x *= _total_rate;
             tempPos.y *= _total_rate;
             tempPos.z *= _total_rate;
-            tempPos.x += Pos.x;
-            tempPos.y += Pos.y;
-            tempPos.z += Pos.z;
+            tempPos.x += _transMap.transform.position.x;
+            tempPos.x -= 42.2f * _total_rate;
+            tempPos.y += _transMap.transform.position.y;
+            tempPos.z += _transMap.transform.position.z;
+            tempPos.z += -31.4f * +_total_rate ;
 
-            
+
 
             if (_transPlayers.Count > 0)
                 _transPlayers[num].TransPostion(tempPos);
@@ -599,7 +679,8 @@ namespace FStudio.MatchEngine
         public void AddMap(TransFormMap map)
         {
             _transMap = map;
-            
+
+            //_transMap.transform.position = new Vector3(200.14f, 0.8f, -2.411f);
         }
         public void ReomveMap()
         {
@@ -611,6 +692,8 @@ namespace FStudio.MatchEngine
         {
 
             pl.transform.parent = _transMap.transform;
+            
+            //pl.transform.parent = _transMap._map.transform; ;
             _transPlayers.Add(pl);
             foreach (TransFormPlayerBase player1 in _transPlayers)
             {
@@ -647,6 +730,7 @@ namespace FStudio.MatchEngine
 
 
             _transBall.TransSize(1f);
+            //_transBall.transform.parent = _transMap._map.transform;
             _transBall.transform.parent = _transMap.transform;
             _total_rate = 0.02f;
 
@@ -668,8 +752,7 @@ namespace FStudio.MatchEngine
 
         public void OnOffButton()
         {
-            if (!movingMap
-                )
+            if (!movingMap)
             {
                 movingMap = true;
                 Time.timeScale = 1.5f;
