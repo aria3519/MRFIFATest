@@ -1,4 +1,4 @@
-﻿using Photon.Pun;
+﻿/*using Photon.Pun;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
@@ -25,3 +25,4 @@ public class ChangeColor : MonoBehaviour
         renderer.material.SetColor("_Color", new Color(randomColor.x, randomColor.y, randomColor.z));
     }
 }
+*/

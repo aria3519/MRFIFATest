@@ -253,19 +253,8 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f4dd1e16-cfa9-48b6-9bbd-1b8266eb1600"",
-                    ""path"": ""<PXR_Controller>{RightHand}/primaryButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""ChangePlayer"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""ca39cfbb-3023-4a36-81ef-68689cbcdea1"",
-                    ""path"": ""<XRController>{LeftHand}/menu"",
+                    ""path"": ""<XRController>{RightHand}/triggerPressed"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""XR"",
@@ -309,18 +298,7 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""98d8b5ec-0e80-4746-a4d6-03c560ec4e40"",
-                    ""path"": ""<XRController>{RightHand}/grip"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Pass"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5c77a25d-0db3-4386-8213-db771d0b48e5"",
-                    ""path"": ""<PXR_Controller>{RightHand}/grip"",
+                    ""path"": ""<XRController>{RightHand}/menu"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""XR"",
@@ -407,19 +385,8 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b79e161a-9e8e-41c1-aeb2-18ffb2de04d4"",
-                    ""path"": ""<XRController>{RightHand}/trigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""0794ee5b-5d76-4a49-a5ba-517b4af1a61d"",
-                    ""path"": ""<PXR_Controller>{RightHand}/trigger"",
+                    ""path"": ""<XRController>{RightHand}/primaryButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""XR"",
@@ -495,22 +462,11 @@ public partial class @Engine: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""11617057-5883-4b1f-8e60-f4ec86b728cb"",
-                    ""path"": ""<XRController>{RightHand}/menu"",
+                    ""id"": ""66767585-fa96-4978-ae51-738de31e2697"",
+                    ""path"": ""<XRController>/gripPressed"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""ChangeTacticHigh"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2638d0aa-afcc-46ba-aebb-11facd12edb3"",
-                    ""path"": ""<XRController>{LeftHand}/primaryButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
+                    ""groups"": """",
                     ""action"": ""ChangeTacticHigh"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

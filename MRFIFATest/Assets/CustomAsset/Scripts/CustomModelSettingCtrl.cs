@@ -32,6 +32,7 @@ public enum CustomModelViewState
 
 public class CustomModelSettingCtrl : MonoBehaviour
 {
+    
     private string user_id;
     private CustomModelViewState state;
     private Renderer renderer_hand = null;
@@ -183,7 +184,7 @@ public class CustomModelSettingCtrl : MonoBehaviour
         modelData_r.ID_Face_I = ((int)Random.Range(1000f, 1029.9999f)).ToString();
         modelData_r.ID_Hair_I = ((int)Random.Range(2000f, 2008.9999f)).ToString();
         modelData_r.ID_Wear_I = ((int)Random.Range(3000f, 3015.9999f)).ToString();
-        modelData_r.ID_Acc_I = ((int)Random.Range(4000f, 4035.9999f)).ToString();
+        modelData_r.ID_Acc_I = "4000";////((int)Random.Range(4000f, 4035.9999f)).ToString();
 
         float b = Random.Range(0.1f, 0.7f);
 
@@ -199,7 +200,6 @@ public class CustomModelSettingCtrl : MonoBehaviour
         modelData_r.Hex_Eyebrow_C = ColorUtility.ToHtmlStringRGB(Color.Lerp(hairColor, Color.black, Random.Range(0f, 1f)));
 
         modelData_r.Hex_Eye_C = ColorUtility.ToHtmlStringRGB(new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
-
         modelData_r.Hex_Upper_C = ColorUtility.ToHtmlStringRGB(new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
         modelData_r.Hex_Lower_C = ColorUtility.ToHtmlStringRGB(new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
         modelData_r.Hex_Foot_C = ColorUtility.ToHtmlStringRGB(new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));

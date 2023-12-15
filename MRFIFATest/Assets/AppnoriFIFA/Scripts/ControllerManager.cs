@@ -8,6 +8,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using FStudio.Utilities;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.UI;
 
 namespace FStudio.MatchEngine
 {
@@ -34,6 +35,24 @@ namespace FStudio.MatchEngine
 
         public static ButtonState _ButtonSt = new ButtonState();
 
+
+        [SerializeField]
+        private List<Material> _list_Mat = new List<Material>();
+        
+        [SerializeField]
+        private List<MeshRenderer> _LeftBut = new List<MeshRenderer>();
+        [SerializeField]
+        private List<MeshRenderer> _RightBut = new List<MeshRenderer>();
+
+        [SerializeField]
+        private List<Text> _ListTextL = new List<Text>();
+        [SerializeField]
+        private List<Text> _ListTextR = new List<Text>();
+
+        [SerializeField]
+        private List<GameObject> _controllLine = new List<GameObject>();
+        [SerializeField]
+        private List<XRInteractorLineVisual> _controllray = new List<XRInteractorLineVisual>();
         /* AsyncOperationHandle<GameObject> opHandle;
          public string key;*/
 
@@ -50,16 +69,20 @@ namespace FStudio.MatchEngine
                     return;
             };*/
 
-           /* AssetBundle bun = AssetBundle.LoadFromMemory(File.ReadAllBytes("Assets/AppnoriFIFA/Scripts/playerInputSetting.inputactions"));
-            inputSystem = bun.LoadAsset<InputActionAsset>("playerInputSetting.inputactions");*/
-                
+            /* AssetBundle bun = AssetBundle.LoadFromMemory(File.ReadAllBytes("Assets/AppnoriFIFA/Scripts/playerInputSetting.inputactions"));
+             inputSystem = bun.LoadAsset<InputActionAsset>("playerInputSetting.inputactions");*/
 
 
+            OnButtonChangeColor();
 
             StartCoroutine(FindXRContr());
 
         }
 
+        private void OnDisable()
+        {
+            OffButtonChangeColor();
+        }
 
         /*public IEnumerator OnLoadObject()
         {
@@ -78,7 +101,7 @@ namespace FStudio.MatchEngine
         }*/
 
 
-       
+
 
         private IEnumerator FindXRContr()
         {
@@ -102,6 +125,132 @@ namespace FStudio.MatchEngine
                 yield return null;
             }
         }
+
+
+
+
+
+        private void OnButtonChangeColor()
+        {
+            inputSystem.Enable();
+            InputActionMap Map = inputSystem.actionMaps[1];
+            InputAction OnTriggerActL = Map.FindAction("OnTriL");
+            InputAction OnTriggerActR = Map.FindAction("OnTriR");
+            InputAction OnGripActL = Map.FindAction("OnGripL");
+            InputAction OnGripActR = Map.FindAction("OnGripR");
+            InputAction OnMenuActL = Map.FindAction("OnMenuL");
+            InputAction OnMenuActR = Map.FindAction("OnMenuR");
+            InputAction OnJoyStickL = Map.FindAction("OnJoyStickL");
+            InputAction OnJoyStickR = Map.FindAction("OnJoyStickR");
+
+            OnTriggerActL.performed += OnTriLB;
+            OnTriggerActL.canceled += OnTriLB;
+            OnTriggerActR.performed += OnTriRB;
+            OnTriggerActR.canceled += OnTriRB;
+            OnGripActL.performed += OnGripLB;
+            OnGripActL.canceled += OnGripLB;
+            OnGripActR.performed += OnGripRB;
+            OnGripActR.canceled += OnGripRB;
+            OnMenuActL.performed += OnMenuLB;
+            OnMenuActL.canceled += OnMenuLB;
+            OnMenuActR.performed += OnMenuRB;
+            OnMenuActR.canceled += OnMenuRB;
+            OnJoyStickL.performed += OnJoyStickLB;
+            OnJoyStickL.canceled += OnJoyStickLB;
+            OnJoyStickR.performed += OnJoyStickRB;
+            OnJoyStickR.canceled += OnJoyStickRB;
+        }
+        private void OffButtonChangeColor()
+        {
+            inputSystem.Disable();
+            InputActionMap Map = inputSystem.actionMaps[1];
+            InputAction OnTriggerActL = Map.FindAction("OnTriL");
+            InputAction OnTriggerActR = Map.FindAction("OnTriR");
+            InputAction OnGripActL = Map.FindAction("OnGripL");
+            InputAction OnGripActR = Map.FindAction("OnGripR");
+            InputAction OnMenuActL = Map.FindAction("OnMenuL");
+            InputAction OnMenuActR = Map.FindAction("OnMenuR");
+            InputAction OnJoyStickL = Map.FindAction("OnJoyStickL");
+            InputAction OnJoyStickR = Map.FindAction("OnJoyStickR");
+            OnTriggerActL.performed -= OnTriLB;
+            OnTriggerActL.canceled -= OnTriLB;
+            OnTriggerActR.performed -= OnTriRB;
+            OnTriggerActR.canceled -= OnTriRB;
+            OnGripActL.performed -= OnGripLB;
+            OnGripActL.canceled -= OnGripLB;
+            OnGripActR.performed -= OnGripRB;
+            OnGripActR.canceled -= OnGripRB;
+            OnMenuActL.performed -= OnMenuLB;
+            OnMenuActL.canceled -= OnMenuLB;
+            OnMenuActR.performed -= OnMenuRB;
+            OnMenuActR.canceled -= OnMenuRB;
+            OnJoyStickL.performed -= OnJoyStickLB;
+            OnJoyStickL.canceled -= OnJoyStickLB;
+            OnJoyStickR.performed -= OnJoyStickRB;
+            OnJoyStickR.canceled -= OnJoyStickRB;
+
+        }
+
+
+        public void OnTriLB(InputAction.CallbackContext ctx)
+        {
+          
+            //Debug.LogError("sss" + ctx.action.IsPressed());
+            if (ctx.action.IsPressed()) _LeftBut[0].material = _list_Mat[1];
+            else _LeftBut[0].material = _list_Mat[0];
+        }
+        public void OnTriRB(InputAction.CallbackContext ctx)
+        {
+           
+            //Debug.LogError("sss1" + ctx.action.IsPressed());
+            if (ctx.action.IsPressed()) _RightBut[0].material = _list_Mat[1];
+            else _RightBut[0].material = _list_Mat[0];
+        }
+        public void OnGripLB(InputAction.CallbackContext ctx)
+        {
+
+            //Debug.LogError("sss" + ctx.action.IsPressed());
+            if (ctx.action.IsPressed()) _LeftBut[1].material = _list_Mat[1];
+            else _LeftBut[1].material = _list_Mat[0];
+        }
+        public void OnGripRB(InputAction.CallbackContext ctx)
+        {
+
+            //Debug.LogError("sss1" + ctx.action.IsPressed());
+            if (ctx.action.IsPressed()) _RightBut[1].material = _list_Mat[1];
+            else _RightBut[1].material = _list_Mat[0];
+        }
+        public void OnMenuLB(InputAction.CallbackContext ctx)
+        {
+
+            //Debug.LogError("sss" + ctx.action.IsPressed());
+            if (ctx.action.IsPressed()) _LeftBut[2].material = _list_Mat[1];
+            else _LeftBut[2].material = _list_Mat[0];
+        }
+        public void OnMenuRB(InputAction.CallbackContext ctx)
+        {
+
+            //Debug.LogError("sss1" + ctx.action.IsPressed());
+            if (ctx.action.IsPressed()) _RightBut[2].material = _list_Mat[1];
+            else _RightBut[2].material = _list_Mat[0];
+        }
+        public void OnJoyStickLB(InputAction.CallbackContext ctx)
+        {
+
+            //Debug.LogError("sss1" + ctx.action.IsPressed());
+            if (ctx.action.IsPressed()) _LeftBut[3].material = _list_Mat[1];
+            else _LeftBut[3].material = _list_Mat[0];
+        }
+        public void OnJoyStickRB(InputAction.CallbackContext ctx)
+        {
+
+            //Debug.LogError("sss1" + ctx.action.IsPressed());
+            if (ctx.action.IsPressed()) _RightBut[3].material = _list_Mat[1];
+            else _RightBut[3].material = _list_Mat[0];
+        }
+
+
+
 
         public void OnInputAction()
         {
@@ -167,8 +316,9 @@ namespace FStudio.MatchEngine
 
             // Vector2 temp = ctx.action.ReadValue<Vector2>();
             _ButtonSt.TriL = ctx.action.IsPressed();
-           
-
+            Debug.LogError("sss"+ctx.action.IsPressed());
+            if (ctx.action.IsPressed()) _LeftBut[0].material = _list_Mat[1];
+            else _LeftBut[0].material = _list_Mat[0];
 
 
 
@@ -181,7 +331,9 @@ namespace FStudio.MatchEngine
 
             // Vector2 temp = ctx.action.ReadValue<Vector2>();
             _ButtonSt.TriR = ctx.action.IsPressed();
-
+            Debug.LogError("sss1" + ctx.action.IsPressed());
+            if (ctx.action.IsPressed()) _RightBut[0].material = _list_Mat[1];
+            else _RightBut[0].material = _list_Mat[0];
 
 
 
@@ -219,6 +371,17 @@ namespace FStudio.MatchEngine
         }
 
 
+        public void SetLine(bool Checker)
+        {
+            foreach (GameObject gm in _controllLine)
+                gm.SetActive(Checker);
+
+            foreach (XRInteractorLineVisual ray in _controllray)
+            {
+                if(Checker) ray.lineLength = 10;
+                else ray.lineLength = 0;
+            }
+        }
 
 
 #if STEAMWORKS && UNITY_STANDALONE

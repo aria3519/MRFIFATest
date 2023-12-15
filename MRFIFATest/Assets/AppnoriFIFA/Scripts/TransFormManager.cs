@@ -85,8 +85,9 @@ namespace FStudio.MatchEngine
         {
             //Debug.LogError("TransFormManager Awake");
             //42.2 ,0, 31.4
-           // Pos = new Vector3(200.14f, 0.8f, -2.411f);
-            Pos = new Vector3(199.29f, 0.8f, -2.5f);
+            // Pos = new Vector3(200.14f, 0.8f, -2.411f);
+            // Pos = new Vector3(199.29f, 0.8f, -2.5f);
+            Pos = new Vector3(200.14f, 0.8f, -2.411f);
             Qut = new Quaternion(0, 0, 0, 0);
             ChangeMap_Pos.Value = Pos;
             Check_Qut.Value = Qut;
@@ -95,7 +96,7 @@ namespace FStudio.MatchEngine
 
             Addressables.InstantiateAsync("Assets/AppnoriFIFA/Prefabs/TransFormMap2.prefab", new Vector3(ChangeMap_Pos.Value.x, ChangeMap_Pos.Value.y, ChangeMap_Pos.Value.z), Quaternion.identity);
             
-            _total_rate = 1f;
+            _total_rate = 2f;
             //_transMap.ChangeSize(_X);
             Check_X.Value = _total_rate;
            
@@ -104,6 +105,7 @@ namespace FStudio.MatchEngine
             ContrlPos.Add(new Vector3(0, 0, 0));
             //initInput();
             StartCoroutine(FindXRContr());
+            
 
         }
 
@@ -133,12 +135,12 @@ namespace FStudio.MatchEngine
         protected override void  OnEnable()
         {
             //PXR_Boundary.EnableSeeThroughManual(true);
-           
+            //ControllerManager.Current.SetLine(false);
         }
         private void OnDisable()
         {
             //PXR_Boundary.EnableSeeThroughManual(false);
-          
+            //ControllerManager.Current.SetLine(true);
         }
 
         private void initInput()
@@ -697,7 +699,7 @@ namespace FStudio.MatchEngine
             _transPlayers.Add(pl);
             foreach (TransFormPlayerBase player1 in _transPlayers)
             {
-                player1.TransLocalSize(0.55f);
+                player1.TransLocalSize(1f);
             }
 
 

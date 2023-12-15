@@ -644,7 +644,7 @@ namespace FStudio.MatchEngine.Players.PlayerController {
         private void OnChangeHoldBall(bool isHold)
         {
 
-            TransFormManager.Current.TransFormAniHoldBall(myNumber, isHold);
+            //TransFormManager.Current.TransFormAniHoldBall(myNumber, isHold);
         }
         private void OnChangeCanPlay(bool isplay)
         {
