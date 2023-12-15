@@ -1,0 +1,20 @@
+{
+    "name": "Jisu.Utils.EditorUtils",
+    "rootNamespace": "Jisu.Utils",
+    "references": [
+        "GUID:68ff45ada7bc11e4b80b28cda5d5708e",
+        "GUID:57c32fc907df0f54e8e6e8f0d2488336",
+        "GUID:4025d00f1ce60da4ea2d0830acf5ebfb"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
