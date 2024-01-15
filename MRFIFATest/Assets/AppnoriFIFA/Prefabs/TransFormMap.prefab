@@ -838,15 +838,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a90e026f5b21d464ba7a9aa59a87ecf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputAction:
-    m_Name: Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: cc233e0f-fb7d-4a14-bff6-855c8ecb88f7
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
   num: 3
 --- !u!1 &248054192017307346
 GameObject:
@@ -2803,23 +2794,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a90e026f5b21d464ba7a9aa59a87ecf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputAction:
-    m_Name: Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 5e383a45-0fed-4df3-a03a-f1d9652dee6c
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: d28ce02f-f037-4b41-bc47-ba5621e3240e
-      m_Path: 
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Input
-      m_Flags: 0
-    m_Flags: 0
   num: 1
 --- !u!1 &2497855416066562187
 GameObject:
@@ -8835,15 +8809,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a90e026f5b21d464ba7a9aa59a87ecf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputAction:
-    m_Name: Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 04bc6a26-5a23-49e8-b90c-63659b4da65d
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
   num: 5
 --- !u!1 &8257224000384243146
 GameObject:
@@ -9872,15 +9837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b146827434940843bd73e6f4324beee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputAction:
-    m_Name: Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: f7f7654e-36d6-4bad-a3f0-69d6a89e0dcb
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
+  _timer: -1
 --- !u!114 &7985871812360017211
 MonoBehaviour:
   m_ObjectHideFlags: 0

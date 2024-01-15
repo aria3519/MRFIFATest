@@ -51,7 +51,7 @@ namespace FStudio.UI.Panels {
             };
 
             var aiLevelSetting = PlayerPrefs.GetInt(SETTING_AILEVEL, 4);
-            var sideSetting = PlayerPrefs.GetInt(SETTING_SIDE, 0);
+            var sideSetting = PlayerPrefs.GetInt(SETTING_SIDE, 1);
             var dayTimeSetting = PlayerPrefs.GetInt(SETTING_DAYTIME, 2);
 
             sideSelector.   SetSelected(sideSetting);

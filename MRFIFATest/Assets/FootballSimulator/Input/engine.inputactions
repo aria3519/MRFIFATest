@@ -232,6 +232,17 @@
                 {
                     "name": "",
                     "id": "ca39cfbb-3023-4a36-81ef-68689cbcdea1",
+                    "path": "<PXR_Controller>{RightHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XR",
+                    "action": "ChangePlayer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1c0caec2-a9ba-428b-8815-b9fe2ded338f",
                     "path": "<XRController>{RightHand}/triggerPressed",
                     "interactions": "",
                     "processors": "",
@@ -275,8 +286,8 @@
                 },
                 {
                     "name": "",
-                    "id": "98d8b5ec-0e80-4746-a4d6-03c560ec4e40",
-                    "path": "<XRController>{RightHand}/menu",
+                    "id": "6f897586-1778-4290-a0a7-fe254f2789bf",
+                    "path": "<XRController>{RightHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
@@ -363,8 +374,8 @@
                 },
                 {
                     "name": "",
-                    "id": "0794ee5b-5d76-4a49-a5ba-517b4af1a61d",
-                    "path": "<XRController>{RightHand}/primaryButton",
+                    "id": "2600c945-1716-420a-8f9a-de8a99c96075",
+                    "path": "<XRController>{RightHand}/secondaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
@@ -440,11 +451,11 @@
                 },
                 {
                     "name": "",
-                    "id": "66767585-fa96-4978-ae51-738de31e2697",
-                    "path": "<XRController>/gripPressed",
+                    "id": "53770e11-6bfe-477d-bc9b-b60a7372f3e9",
+                    "path": "<XRController>{LeftHand}/gripPressed",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "XR",
                     "action": "ChangeTacticHigh",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -511,6 +522,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse;Touch",
+                    "action": "Cross",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8dcca7a-2347-4939-87d4-a477cf559a22",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XR",
                     "action": "Cross",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -3018,7 +3018,6 @@ MonoBehaviour:
   - {fileID: 3017869083454200987}
   - {fileID: 1373937677826780453}
   _Sound_Goal: {fileID: 0}
-  movingMap: 0
   sizeup: 0
   sizedown: 0
   inputSystem: {fileID: -944628639613478452, guid: 585d7114521e4bd498f90acd1971a208, type: 3}
@@ -3817,6 +3816,10 @@ PrefabInstance:
     - target: {fileID: 985190850109675244, guid: 800531ed933ba7d4f80ec4359c0bbea2, type: 3}
       propertyPath: m_Name
       value: Shadow2
+      objectReference: {fileID: 0}
+    - target: {fileID: 985190850109675244, guid: 800531ed933ba7d4f80ec4359c0bbea2, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2653178074420498630, guid: 800531ed933ba7d4f80ec4359c0bbea2, type: 3}
       propertyPath: m_RootOrder

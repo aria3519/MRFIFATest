@@ -246,6 +246,7 @@ namespace FStudio.MatchEngine {
                 }
 
                 Current.Referees = null;
+
             }
         }
 
@@ -350,7 +351,7 @@ namespace FStudio.MatchEngine {
                 EventManager.Trigger(new TeamChangedTactic(Current.UserTeam, defaultUserTactic));
             }
             //
-
+            ControllerManager.Current.SetLine(false);
             GameInput.SwitchToMatchEngine();
         }
 
@@ -464,7 +465,7 @@ namespace FStudio.MatchEngine {
             Debug.Log("[MatchManager] ResetMatchState ()");
             GameTeam1.Clear();
             GameTeam2.Clear();
-
+            
             var midPoint = new Vector3(fieldEndX / 2f, 0, fieldEndY / 2f);
 
             ball.ResetBall(midPoint);
@@ -608,9 +609,13 @@ namespace FStudio.MatchEngine {
             }
 
             if (MatchFlags.HasFlag (MatchStatus.NotPlaying)) {
+                
                 return;
             }
-            
+           if(minutes >= 90)
+                ControllerManager.Current.SetLine(true);
+
+
             if (!MatchFlags.HasFlag(MatchStatus.Freeze)) {
                 var midPoint = fieldEndX / 2f;
                 var ballPosX = ball.transform.position.x;
@@ -655,8 +660,10 @@ namespace FStudio.MatchEngine {
                     }
                 } else {
                     minutes = Mathf.Min (90, minutes + deltaTime * matchSpeed);
+                    
                 }
             }
+            
 
             var team1Tactic = GetTeamEvent(GameTeam1);
             var team2Tactic = GetTeamEvent(GameTeam2);
